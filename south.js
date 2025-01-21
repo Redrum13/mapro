@@ -246,57 +246,89 @@ lineLayerGroup.addTo(map);
 walkLineLayerLayerGroup.addTo(map);
 pointLayerGroup.addTo(map); // Add last to ensure it is on top
 
-const legendContent = `
-  <div class="legend-container" style="background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);">
-    <h4 style="margin-top: 0; text-align: center;">Map Legend</h4>
-     <div style="display: flex; align-items: center; margin-bottom: 5px;">
-      <span style="display: inline-block; width: 20px; height: 2px; background-color: red; margin-right: 10px;"></span>
-      <span>Main Road</span>
+///////////////////// NEW LEGEND /////////////////////////////////////
+const legendContent = 
+  `<div class="legend-container" style="background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);">
+    <h4 id="legend-title" style="margin-top: 0; margin-bottom: 10px; text-align: center; cursor: pointer;">Map Legend</h4>
+    <div id="legend-list" style="display: none;">
+      <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <span style="display: inline-block; width: 20px; height: 2px; background-color: red; margin-right: 10px;"></span>
+        <span>Main Road</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <span style="display: inline-block; width: 20px; height: 2px; background-color: white; margin-right: 10px;"></span>
+        <span>English Garden road </span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <span style="display: inline-block; width: 20px; height: 2px; background-color: orange; margin-right: 10px;"></span>
+        <span>Tracks</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: blue; margin-right: 10px; border-radius: 50%; border: 1px solid #000;"></span>
+        <span>Transport Points</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: orange; margin-right: 10px; border-radius: 50%; border: 1px solid #000;"></span>
+        <span>Historical Points</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: darkgreen; margin-right: 10px; border: 1px solid #000;"></span>
+        <span>Forest</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: aqua; margin-right: 10px; border: 1px solid #000;"></span>
+        <span>Water </span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: lightgreen; margin-right: 10px; border: 1px solid #000;"></span>
+        <span>Open Space</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: Gray; margin-right: 10px; border: 1px solid #000;"></span>
+        <span>Other</span>
+      </div>
     </div>
-    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-      <span style="display: inline-block; width: 20px; height: 2px; background-color: white; margin-right: 10px;"></span>
-      <span>English Garden road </span>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-      <span style="display: inline-block; width: 20px; height: 2px; background-color: orange; margin-right: 10px;"></span>
-      <span>Tracks</span>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-      <span style="display: inline-block; width: 20px; height: 20px; background-color: blue; margin-right: 10px; border-radius: 50%; border: 1px solid #000;"></span>
-      <span>Transport Points</span>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-      <span style="display: inline-block; width: 20px; height: 20px; background-color: orange; margin-right: 10px; border-radius: 50%; border: 1px solid #000;"></span>
-      <span>Historical Points</span>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-      <span style="display: inline-block; width: 20px; height: 20px; background-color: darkgreen; margin-right: 10px; border: 1px solid #000;"></span>
-      <span>Forest</span>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-      <span style="display: inline-block; width: 20px; height: 20px; background-color: aqua; margin-right: 10px; border: 1px solid #000;"></span>
-      <span>Water </span>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-      <span style="display: inline-block; width: 20px; height: 20px; background-color: lightgreen; margin-right: 10px; border: 1px solid #000;"></span>
-      <span>Open Space</span>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 5px;">
-      <span style="display: inline-block; width: 20px; height: 20px; background-color: Gray; margin-right: 10px; border: 1px solid #000;"></span>
-      <span>Other</span>
+    <div id="legend-message" style="display: none; text-align: center; font-style: italic; color: gray;">
+      Click to expand the legend.
     </div>
   </div>
 `;
 
-// Add legend control to the map
 const legend = L.control({ position: 'topright' });
 
 legend.onAdd = function (map) {
   const div = L.DomUtil.create('div', 'leaflet-control');
   div.innerHTML = legendContent;
+
+  const legendTitle = div.querySelector('#legend-title');
+  const legendList = div.querySelector('#legend-list');
+  const legendMessage = div.querySelector('#legend-message');
+
+  // Toggle the visibility of the legend list when clicking the "Map Legend" title
+  legendTitle.addEventListener('click', () => {
+    if (legendList.style.display === 'none') {
+      legendList.style.display = 'block';
+    } else {
+      legendList.style.display = 'none';
+    }
+  });
+
+  // Show the "Click to expand the Map legend" message when hovering over the collapsed "Map Legend" title
+  legendTitle.addEventListener('mouseenter', () => {
+    if (legendList.style.display === 'none') {
+      legendMessage.style.display = 'block';
+    }
+  });
+
+  // Hide the "Click to expand the legend" message when the mouse leaves the "Map Legend" title
+  legendTitle.addEventListener('mouseleave', () => {
+    legendMessage.style.display = 'none';
+  });
+
   return div;
 };
 
 legend.addTo(map);
+///////////////////// END OF NEW LEGEND /////////////////////////////////////
 
 // division of measurement
