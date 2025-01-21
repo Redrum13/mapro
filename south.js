@@ -124,12 +124,12 @@ const innerLineStyle = function (feature) {
 
 const pointStyle = (feature) => {
   let style = {
-    radius: 5,
+    radius: 3,
     color: '#000',
     weight: 1,
     opacity: 1,
     fillOpacity: 0.8,
-    fillColor: feature.properties.layer === 'Transport' ? 'blue' : 'orange',
+    fillColor: feature.properties.layer === 'Transport' ? 'blue' : 'brown',
     pane: 'pointPane' // Assign to pointPane
   };
   return style;
