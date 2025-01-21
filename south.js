@@ -160,6 +160,31 @@ const pointStyle = (feature) => {
   .catch(error => {
     console.error('Error loading GeoJSON for polygons:', error);
   });
+  // Fetch and display the polygon GeoJSON
+  fetch("https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/northside.geojson")
+  .then(response => response.json())
+  .then(geojsonData => {
+    // Assume we want to reorder the polygons based on their indices in the features array
+    // Replace the indices with the actual order you want (e.g., [2, 0, 3, 1])
+    const order = [1, 0, 3, 2]; // New order based on the desired attribute
+
+    order.forEach(index => {
+      // Add each polygon to the map based on the new order
+      const feature = geojsonData.features[index];
+      L.geoJSON(feature, {
+        style: polygonStyle,
+        onEachFeature: onEachFeature,
+        pane: 'polygonPane' // Assign to polygonPane
+      }).addTo(polygonLayerGroup);
+    });
+
+    // Optionally, fit the map bounds to the GeoJSON data
+    const bounds = L.geoJSON(geojsonData).getBounds();
+    map.fitBounds(bounds);
+  })
+  .catch(error => {
+    console.error('Error loading GeoJSON for polygons:', error);
+  });
 
 // Fetch and display the line GeoJSON
 fetch("https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/trackfin.geojson")
