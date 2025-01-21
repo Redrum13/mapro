@@ -16,6 +16,14 @@
     <p class="placeholder-text">This is a placeholder for introductory text.</p>
     <img class="placeholder-image" src="https://via.placeholder.com/150" alt="Placeholder image">
   </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      document.querySelector(".fullscreen").style.display = "none";
+      document.querySelector("#map").style.display = "block";
+    }, 3000); // Hides fullscreen div after 3 seconds
+  });
+</script>
   <div id="map"></div>
    <!-- Checkboxes for toggling walk line layers -->
    <div id="controls">
