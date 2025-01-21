@@ -162,7 +162,7 @@ const pointStyle = (feature) => {
   });
 
 // Fetch and display the line GeoJSON
-fetch("https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/trackfin.geojson")
+fetch("https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/final_track.geojson")
   .then(response => response.json())
   .then(geojsonData => {
 
