@@ -1,7 +1,7 @@
 // Initialize the map container without a predefined view
 const map = L.map('map',{
   zoomControl: false, // Disable default zoom control
-  minZoom: 13,          // Minimum zoom level
+  minZoom: 12,          // Minimum zoom level
   maxZoom: 17          // Maximum zoom level
 })
 .setView([0, 0], 10); // Set initial view to 0,0 with a zoom level of 2
