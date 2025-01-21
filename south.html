@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoJSON in Leaflet</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="south.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-draw/dist/leaflet.draw.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet-draw/dist/leaflet.draw.js"></script>
+</head>
+<body>
+  <div id="map"></div>
+   <!-- Checkboxes for toggling walk line layers -->
+   <div id="controls">
+    <label>
+      <input type="checkbox" value="Nationalmuseum_park" checked> Nationalmuseum_park
+    </label>
+    <label>
+      <input type="checkbox" value="Jap_roundabout" checked> Jap_roundabout
+    </label>
+    <label>
+      <input type="checkbox" value="Universitat_park" checked> Universitat_park
+    </label>
+    <label>
+      <input type="checkbox" value="Monopetros_round" checked> Monopetros_round
+    </label>
+    <label>
+      <input type="checkbox" value="Surf_round" checked> Surf_round
+    </label>
+    <label>
+      <input type="checkbox" value="Lake_round" checked> Lake_round
+    </label>
+  </div>
+
+  <script src="south.js"></script>
+</body>
+</html>
+
