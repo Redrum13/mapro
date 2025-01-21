@@ -4,7 +4,6 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%; /* Ensure the page spans full height */
-  overflow: hidden; /* Prevent scrolling until fullscreen is scrolled away */
 }
 
 /* Fullscreen Blank Div */
