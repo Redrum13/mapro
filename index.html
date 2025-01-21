@@ -16,12 +16,11 @@
     <p class="placeholder-text">This is a placeholder for introductory text.</p>
   </div>
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-      document.querySelector(".fullscreen").style.display = "none";
-      document.querySelector("#map").style.display = "block";
-    }, 3000); // Hides fullscreen div after 3 seconds
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  // No timeout needed; let the user scroll naturally
+  document.querySelector(".fullscreen").style.display = "block"; // Ensure it's visible
+  document.querySelector("#map").style.display = "block"; // Ensure the map section is also visible
+});
 </script>
   <div id="map">
    <!-- Checkboxes for toggling walk line layers -->
