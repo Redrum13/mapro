@@ -217,7 +217,7 @@ fetch("https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/trackfin
   });
 
 // Toggle walk line visibility
-fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/walk.geojson')
+fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/walkfin.geojson')
   .then(response => response.json())
   .then(geojsonData => {
     const layers = {};
