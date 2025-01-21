@@ -43,7 +43,7 @@ const polygonStyle = function (feature) {
   };
 
   // Check the properties and apply styles accordingly
-  if (feature.properties && ['wood','woodlands'].includes(feature.properties.natural)){
+  if (feature.properties.natural === 'wood'){
     style.color = '#008000';  // Border color for forest polygons
     style.fillColor = '#006400';  
   } else if (feature.properties.natural === 'water') {
