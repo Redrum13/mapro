@@ -273,74 +273,52 @@ pointLayerGroup.addTo(map); // Add last to ensure it is on top
 
 const legendContent = `
   <div class="legend-container" style="background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);">
-    <!-- Map Legend Toggle Button -->
-    <button id="toggleLegendButton" style="width: 100%; padding: 10px; font-size: 16px; cursor: pointer; background-color: #007bff; color: white; border: none; text-align: center;">
-      Map Legend <span id="legendArrow">&#x25BC;</span>
-    </button>
-
-    <!-- Legend Content (Initially hidden) -->
-    <div id="legendContent" style="display: none; margin-top: 10px;">
-      <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 2px; background-color: red; margin-right: 10px;"></span>
-        <span>Main Road</span>
-      </div>
-      <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 2px; background-color: white; margin-right: 10px;"></span>
-        <span>English Garden Road</span>
-      </div>
-      <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 2px; background-color: orange; margin-right: 10px;"></span>
-        <span>Tracks</span>
-      </div>
-      <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: blue; margin-right: 10px; border-radius: 50%; border: 1px solid #000;"></span>
-        <span>Transport Points</span>
-      </div>
-      <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: orange; margin-right: 10px; border-radius: 50%; border: 1px solid #000;"></span>
-        <span>Historical Points</span>
-      </div>
-      <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: darkgreen; margin-right: 10px; border: 1px solid #000;"></span>
-        <span>Forest</span>
-      </div>
-      <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: aqua; margin-right: 10px; border: 1px solid #000;"></span>
-        <span>Water</span>
-      </div>
-      <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: lightgreen; margin-right: 10px; border: 1px solid #000;"></span>
-        <span>Open Space</span>
-      </div>
-      <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: gray; margin-right: 10px; border: 1px solid #000;"></span>
-        <span>Other</span>
-      </div>
+    <h4 style="margin-top: 0; text-align: center;">Map Legend</h4>
+     <div style="display: flex; align-items: center; margin-bottom: 5px;">
+      <span style="display: inline-block; width: 20px; height: 2px; background-color: red; margin-right: 10px;"></span>
+      <span>Main Road</span>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+      <span style="display: inline-block; width: 20px; height: 2px; background-color: white; margin-right: 10px;"></span>
+      <span>English Garden road </span>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+      <span style="display: inline-block; width: 20px; height: 2px; background-color: orange; margin-right: 10px;"></span>
+      <span>Tracks</span>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+      <span style="display: inline-block; width: 20px; height: 20px; background-color: blue; margin-right: 10px; border-radius: 50%; border: 1px solid #000;"></span>
+      <span>Transport Points</span>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+      <span style="display: inline-block; width: 20px; height: 20px; background-color: orange; margin-right: 10px; border-radius: 50%; border: 1px solid #000;"></span>
+      <span>Historical Points</span>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+      <span style="display: inline-block; width: 20px; height: 20px; background-color: darkgreen; margin-right: 10px; border: 1px solid #000;"></span>
+      <span>Forest</span>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+      <span style="display: inline-block; width: 20px; height: 20px; background-color: aqua; margin-right: 10px; border: 1px solid #000;"></span>
+      <span>Water </span>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+      <span style="display: inline-block; width: 20px; height: 20px; background-color: lightgreen; margin-right: 10px; border: 1px solid #000;"></span>
+      <span>Open Space</span>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 5px;">
+      <span style="display: inline-block; width: 20px; height: 20px; background-color: Gray; margin-right: 10px; border: 1px solid #000;"></span>
+      <span>Other</span>
     </div>
   </div>
 `;
 
+// Add legend control to the map
 const legend = L.control({ position: 'topright' });
 
 legend.onAdd = function (map) {
   const div = L.DomUtil.create('div', 'leaflet-control');
   div.innerHTML = legendContent;
-
-  // Button to toggle the entire legend visibility
-  const toggleButton = div.querySelector('#toggleLegendButton');
-  const legendContentDiv = div.querySelector('#legendContent');
-  const legendArrow = div.querySelector('#legendArrow');
-
-  // Toggle legend visibility on button click
-  toggleButton.addEventListener('click', () => {
-    const isLegendVisible = legendContentDiv.style.display === 'block';
-
-    // Toggle the display state of the legend content
-    legendContentDiv.style.display = isLegendVisible ? 'none' : 'block';
-    // Change the arrow direction based on visibility
-    legendArrow.innerHTML = isLegendVisible ? '&#x25BC;' : '&#x25B2;';
-  });
-
   return div;
 };
 
