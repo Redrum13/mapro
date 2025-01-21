@@ -1,8 +1,43 @@
     /* Set the html and body to 100% height */
-    html, body {
-        height: 100%;
-        margin: 0; /* Remove default margin */
-      }
+/* Reset body and html for fullscreen behavior */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure the page spans full height */
+  overflow: hidden; /* Prevent scrolling until fullscreen is scrolled away */
+}
+
+/* Fullscreen Blank Div */
+.fullscreen {
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  background-color: black; /* Blank screen with black background */
+  display: flex; /* Center content flexibly */
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  color: white; /* Text color for contrast */
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 1rem; /* Optional padding for spacing */
+  box-sizing: border-box; /* Include padding in size calculations */
+}
+
+/* Placeholder Text */
+.placeholder-text {
+  margin: 0.5rem 0; /* Space between elements */
+  font-size: 2rem; /* Adjust size as needed */
+  opacity: 0.7; /* Make it visually distinct as a placeholder */
+}
+
+/* Placeholder Image */
+.placeholder-image {
+  width: 150px; /* Size of the placeholder image */
+  height: auto; /* Maintain aspect ratio */
+  margin: 1rem 0; /* Space around the image */
+  border: 2px dashed white; /* Visual cue for placeholder */
+  opacity: 0.7; /* Lighter appearance for a placeholder */
+}
   
       /* Set the map div to 100% width and height */
       #map {
