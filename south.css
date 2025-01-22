@@ -10,7 +10,10 @@ html, body {
 .fullscreen {
   width: 100%; /* Full width of the viewport */
   height: 100%; /* Full height of the viewport */
-  background-color: black; /* Blank screen with black background */
+  background-image: url('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/englischer-garten.jpg');
+  background-size: cover; /* Ensures the image covers the entire element */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
   display: flex; /* Center content flexibly */
   flex-direction: column; /* Stack elements vertically */
   justify-content: center; /* Center vertically */
