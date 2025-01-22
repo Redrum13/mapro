@@ -8,8 +8,8 @@ html, body {
 
 /* Fullscreen Blank Div */
 .fullscreen {
-  width: 100vw; /* Full width of the viewport */
-  height: 100vh; /* Full height of the viewport */
+  width: 100%; /* Full width of the viewport */
+  height: 100%; /* Full height of the viewport */
   background-color: black; /* Blank screen with black background */
   display: flex; /* Center content flexibly */
   flex-direction: column; /* Stack elements vertically */
