@@ -206,7 +206,7 @@ fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/loop_fin
         pane: 'walkLinePane'
       }),
       onEachFeature: (feature, layer) => {
-        const type = feature.properties.name;
+        const type = feature.properties.Name;
         if (!layers[type]) layers[type] = L.layerGroup();
         layers[type].addLayer(layer);
       }
@@ -224,7 +224,6 @@ fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/loop_fin
       });
     });
 
-    Object.values(layers).forEach(layer => layer.addTo(map)); // Add all layers initially
   })
   .catch(error => console.error('Error loading GeoJSON for walk lines:', error));
 
