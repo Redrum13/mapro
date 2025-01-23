@@ -7,7 +7,7 @@ const map = L.map('map',{
 .setView([0, 0], 10); // Set initial view to 0,0 with a zoom level of 2
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  opacity: 0.5 // Set opacity to 50%
+  opacity: 0.17 // Set opacity to 50%
 }).addTo(map);
 
 L.control.zoom({
@@ -45,16 +45,16 @@ const polygonStyle = function (feature) {
   // Check the properties and apply styles accordingly
   if (feature.properties.natural === 'wood'){
     style.color = '#008000';  // Border color for forest polygons
-    style.fillColor = '#006400';  
+    style.fillColor = 'darkgreen';  
   } else if (feature.properties.natural === 'water') {
-    style.color = '#0000FF';  // Border color for water polygons
+    style.color = 'blue';  // Border color for water polygons
     style.fillColor = 'lightblue';  // Fill color for water polygons
   } else if (feature.properties.natural === 'other') {
     style.color = '#D3D3D3';  // Border color for urban polygons
-    style.fillColor = '#D3D3D3';  // Fill color for urban polygons
+    style.fillColor = 'gray';  // Fill color for urban polygons
   } else {
     style.color = '#000000';  // Default border color for other polygons
-    style.fillColor = '#90EE90';  // Default fill color for other polygons
+    style.fillColor = 'lightgreen';  // Default fill color for other polygons
   }
 
   return style;
@@ -251,15 +251,15 @@ const legendContent =
     <h4 id="legend-title" style="margin-top: 0; margin-bottom: 10px; text-align: center; cursor: pointer;">Map Legend</h4>
     <div id="legend-list" style="display: none;">
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 2px; background-color: red; margin-right: 10px;"></span>
+        <span style="display: inline-block; width: 20px; height: 5px; background-color: lightgrey; margin-right: 10px;"></span>
         <span>Main Road</span>
       </div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 2px; background-color: white; margin-right: 10px;"></span>
+        <span style="display: inline-block; width: 20px; height: 4px; background-color: lightgrey; margin-right: 10px;"></span>
         <span>English Garden road </span>
       </div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 2px; background-color: orange; margin-right: 10px;"></span>
+        <span style="display: inline-block; width: 20px; height: 2px; background-color: lightgrey; margin-right: 10px;"></span>
         <span>Tracks</span>
       </div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
@@ -267,23 +267,23 @@ const legendContent =
         <span>Transport Points</span>
       </div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: orange; margin-right: 10px; border-radius: 50%; border: 1px solid #000;"></span>
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: brown; margin-right: 10px; border-radius: 50%; border: 1px solid #000;"></span>
         <span>Historical Points</span>
       </div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: darkgreen; margin-right: 10px; border: 1px solid #000;"></span>
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: darkgreen; margin-right: 10px; border: 1px solid #008000;"></span>
         <span>Forest</span>
       </div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: aqua; margin-right: 10px; border: 1px solid #000;"></span>
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: lightblue; margin-right: 10px; border: 1px solid blue;"></span>
         <span>Water </span>
       </div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: lightgreen; margin-right: 10px; border: 1px solid #000;"></span>
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: lightgreen; margin-right: 10px; border: 1px solid #D3D3D3;"></span>
         <span>Open Space</span>
       </div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: Gray; margin-right: 10px; border: 1px solid #000;"></span>
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: Gray; margin-right: 10px; border: 1px solid  #D3D3D3;"></span>
         <span>Other</span>
       </div>
     </div>
