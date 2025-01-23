@@ -82,6 +82,8 @@ html, body {
     }
     .list {
       flex: 1;
+      overflow-x: hidden;
+      overflow-y: auto;
       font-size: 12px;
       max-height: 15vh;
       column-count: 2;
