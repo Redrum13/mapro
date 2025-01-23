@@ -83,7 +83,7 @@ html, body {
     .list {
       flex: 1;
       font-size: 12px;
-      max-height: 10vh;
+      max-height: 15vh;
       column-count: 2;
     }
     .col-sm-10 {
