@@ -62,7 +62,7 @@ html, body {
     margin: 0; /* Remove any default margin that might cause overflow */
     text-shadow: 2px 2px 4px #000000;
     background: rgba(6, 97, 44, 0.5); /* Green background with 30% opacity */
-    animation: fadeIn 2s ease-in-out forwards;
+    animation: fadeIn 3s ease-in-out forwards;
   }
 
   @media (max-width: 576px) {
