@@ -24,8 +24,6 @@ html, body {
   padding: 1rem; /* Optional padding for spacing */
   box-sizing: border-box; /* Include padding in size calculations */
 }
-
-
   .main-title {
     font-size: 4rem; /* Increase the font size for prominence */
     font-weight: 800; /* Bold weight for emphasis */
@@ -41,7 +39,7 @@ html, body {
     }
   }
   .sub-title {
-    background-color: darkslategrey;
+    background: rgba(6, 97, 44, 0.3); /* Green background with 30% opacity */
     font-size: 2rem; /* Increase the font size for prominence */
     font-weight: 400; /* Bold weight for emphasis */
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; /* Use a stylish, eye-catching font */
@@ -72,7 +70,7 @@ html, body {
       flex: 1;
       overflow-x: hidden;
       overflow-y: auto;
-      max-height: 30vh;
+      max-height: 40vh;
     }
   }
 
