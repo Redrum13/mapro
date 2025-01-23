@@ -33,30 +33,18 @@ html, body {
     text-shadow: 2px 2px 4px #000000; /* Subtle shadow for depth */
   
   }
-  @media (max-width: 576px) {
-    .main-title {
-      font-size: 3rem; /* Reduce font size for mobile screens */
-    }
-  }
   .sub-title {
-    background: rgba(6, 97, 44, 0.3); /* Green background with 30% opacity */
     font-size: 2rem; /* Increase the font size for prominence */
     font-weight: 400; /* Bold weight for emphasis */
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; /* Use a stylish, eye-catching font */
     text-align: center; /* Optional: Center-align the title */
     letter-spacing: 2px; /* Add spacing between letters for elegance */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9); /* Subtle shadow for depth */
- 
-  }
-  @media (max-width: 576px) {
-    .sub-title {
-      font-size: 1rem; /* Reduce font size for mobile screens */
-      
-    }
+    background: rgba(163, 214, 184, 0.5); /* Green background with 30% opacity */
   }
   .sub-container{
-   
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px;
     box-sizing: border-box; /* Ensure padding and borders are included in total width/height */
     padding: 0; /* Remove any default padding that might cause overflow */
     margin: 0; /* Remove any default margin that might cause overflow */
@@ -64,16 +52,49 @@ html, body {
     background: rgba(6, 97, 44, 0.5); /* Green background with 30% opacity */
     animation: fadeIn 3s ease-in-out forwards;
   }
-
+  .next-screen {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px;
+    box-sizing: border-box; /* Ensure padding and borders are included in total width/height */
+    padding: 0; /* Remove any default padding that might cause overflow */
+    margin: 0; /* Remove any default margin that might cause overflow */
+    text-shadow: 4px 4px 4px #000000;
+    background: rgba(36, 54, 44, 0.5); /* Green background with 30% opacity */
+    animation: fadeIn 3s ease-in-out forwards;
+  }
   @media (max-width: 576px) {
-    .sub-container {
+    .fullscreen {
+      height: 140%;
+    }
+    .main-title {
+      font-size: 3rem; /* Reduce font size for mobile screens */
+    }
+    .sub-title {
+      font-size: 1rem; /* Reduce font size for mobile screens */  
+      background: rgba(6, 97, 44, 0.5); /* Green background with 30% opacity */
+    }
+    .text-break {
       flex: 1;
       overflow-x: hidden;
       overflow-y: auto;
-      max-height: 40vh;
+      font-size: 12px;
+      max-height: 17vh;
     }
-  }
+    .list {
+      flex: 1;
+      font-size: 12px;
+      max-height: 10vh;
+      column-count: 2;
+    }
+    .col-sm-10 {
+      flex: 1;
+      overflow-x: hidden;
+      overflow-y: auto;
+      font-size: 12px;
+      max-height: 20vh;
+    }
 
+  }
   @keyframes fadeIn {
     0%{
       opacity: 0; /* Start and end with opacity 0 */
