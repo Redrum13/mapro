@@ -383,7 +383,7 @@ fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/loop_fin
     });
 
     // Add event listeners to checkboxes
-    document.querySelectorAll('#controls input').forEach(checkbox => {
+    document.querySelectorAll('#right-pane input').forEach(checkbox => {
       checkbox.addEventListener('change', (event) => {
         const type = event.target.value;
         if (event.target.checked) {
