@@ -74,26 +74,20 @@ html, body {
       background: rgba(6, 97, 44, 0.5); /* Green background with 30% opacity */
     }
     .text-break {
-      flex: 1;
-      overflow-x: hidden;
-      /* overflow-y: auto; */
+
       font-size: 12px;
-      max-height: 17vh;
+
     }
     .list {
-      flex: 1;
-      overflow-x: hidden;
-      /* overflow-y: auto; */
+
       font-size: 12px;
       max-height: 15vh;
       column-count: 3;
     }
     .col-sm-10 {
-      flex: 1;
-      overflow-x: hidden;
-      /* overflow-y: auto; */
+
       font-size: 12px;
-      max-height: 20vh;
+
     }
 
   }
