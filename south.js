@@ -168,7 +168,7 @@ function updateTableAndMap() {
   setTimeout(() => {
     document.getElementById('time-value').textContent = time || '----';
     document.getElementById('distance-value').textContent = distance || '----';
-  }, 500);
+  }, 600);
 
   // Zoom to and highlight the selected track
   zoomToTrack(selectedTrack);
@@ -491,7 +491,9 @@ legend.onAdd = function (map) {
 
   // Hide the "Click to expand the legend" message when the mouse leaves the "Map Legend" title
   legendTitle.addEventListener('mouseleave', () => {
-    legendMessage.style.display = 'none';
+    if (legendList.style.display === 'none') {
+      legendMessage.style.display = 'none';
+    }
   });
 
   return div;
