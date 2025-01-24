@@ -1,19 +1,61 @@
+// Initialize base maps
+const cartoDBMatterLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+  attribution: '&copy; <a href="https://carto.com/attributions">CartoDB</a> contributors',
+  maxZoom: 19, // Max zoom level for CartoDB Matter
+  opacity: 1, // Set the opacity (optional)
+});
+const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  opacity: 0.5, // Set opacity to 50%
+})
+
 // Initialize the map container without a predefined view
 const map = L.map('map',{
-  zoomControl: false, // Disable default zoom control
+  zoomControl: false,
+  layers: [cartoDBMatterLayer], // Disable default zoom control
   minZoom: 13,          // Minimum zoom level
   maxZoom: 17          // Maximum zoom level
-})
-.setView([0, 0], 10); // Set initial view to 0,0 with a zoom level of 2
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  opacity: 0.17 // Set opacity to 50%
+}).setView([0, 0], 10); // Set initial view to 0,0 with a zoom level of 2
+
+const baseLayers = {
+  "Esri World Dark Gray": cartoDBMatterLayer,
+  "OpenStreetMap": osmLayer,
+};
+
+// Add the layer control to the map
+L.control.layers(baseLayers, null, { position: 'topleft'}).addTo(map);
+
+// Add scale bar to the bottom left
+L.control.scale({
+  position: 'bottomleft',
+  metric: true,         
+  maxWidth: 100,          
 }).addTo(map);
 
+L.Control.Measure.include({
+  _setCaptureMarkerIcon: function () {
+    this._captureMarker.options.autoPanOnFocus = false;
+    this._captureMarker.setIcon(
+      L.divIcon({
+        iconSize: this._map.getSize().multiplyBy(2)
+      })
+    );
+  },
+});
+var measure = L.control.measure({
+  position: 'bottomleft',
+  primaryLengthUnit: 'meters',
+  secondaryLengthUnit: 'kilometers',
+  primaryAreaUnit: 'sqmeters', 
+  secondaryAreaUnit: 'sqkilometers', 
+  zIndex: 9999,
+}).addTo(map);
+
+// Add a custom zoom control
 L.control.zoom({
-  position: 'bottomright' // Adjust position here (e.g., 'topright', 'bottomleft')
+  position: 'topleft',
+  padding: '10px'
 }).addTo(map);
-
 
 // Create custom panes with explicit z-index
 map.createPane('polygonPane');
@@ -33,6 +75,135 @@ const lineLayerGroup = L.layerGroup();
 const walkLineLayerLayerGroup = L.layerGroup();
 const pointLayerGroup = L.layerGroup();
 
+/////////////////////////////////////////////dropdown begin///////////////////////////////////
+// Manually define track names
+const trackNames = [
+  'Amphitheater Loop',
+  'Thompsonwiese Loop',
+  'River Loop',
+  'Forest Loop',
+  'Isar Loop',
+  'Japanese garden loop',
+  'Monopetros round',
+  'Surfing round',
+  'Lake round',
+];
+
+// Variable to store GeoJSON data for tracks
+let geojsonData = null;
+
+// Fetch GeoJSON data for tracks
+fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/loop_final.geojson')
+  .then(response => response.json())
+  .then(data => {
+    geojsonData = data;  // Store GeoJSON data
+    populateTrackDropdown(); // Populate dropdown with track names
+  })
+  .catch(error => console.error('Error fetching GeoJSON data:', error));
+
+// Populate dropdown with manually defined track names
+function populateTrackDropdown() {
+  const trackSelect = document.getElementById('trackSelect');
+  
+  // Add the "No track selected" option only if not already present
+  if (!document.querySelector('#trackSelect option[value="noTrack"]')) {
+    const noTrackOption = document.createElement('option');
+    noTrackOption.value = 'noTrack';
+    noTrackOption.textContent = 'No track selected';
+    trackSelect.appendChild(noTrackOption);
+  }
+
+  // Populate dropdown with manually defined track names
+  trackNames.forEach((trackName, index) => {
+    const option = document.createElement('option');
+    option.value = index;  // Use index for track identification
+    option.textContent = trackName;  // Manually set track name
+    trackSelect.appendChild(option);
+  });
+
+  // Add event listener to dropdown to trigger table/map updates
+  trackSelect.addEventListener('change', updateTableAndMap);
+}
+
+//////////////////////////////////////////////////////////////////
+// Function to update the table and map when a track is selected
+function updateTableAndMap() {
+  const trackSelect = document.getElementById('trackSelect');
+  const selectedValue = trackSelect.value;
+  
+  // Reset table values and zoom to default if "noTrack" is selected
+  if (selectedValue === "noTrack") {
+    document.getElementById('time-value').textContent = '----';
+    document.getElementById('distance-value').textContent = '----';
+
+    // Reset the map view to default coordinates and zoom level (default zoom 10, at coordinates [0, 0])
+    location.reload();
+    return; // Exit the function after reloading
+  }
+
+    // Check if any track checkbox is selected
+  const trackCheckboxes = document.querySelectorAll('#right-pane input[type="checkbox"]');
+  let isAnyTrackChecked = false;
+  
+  trackCheckboxes.forEach(checkbox => {
+    if (checkbox.checked) {
+      isAnyTrackChecked = true;
+    }
+  });
+
+  // If no checkboxes are checked, show a pop-up reminder
+  if (!isAnyTrackChecked) {
+    alert('Please toggle on at least one track to view it on the map!');
+    return; // Exit the function, do not proceed with track update
+  }
+
+  
+  // If a track is selected, proceed to update the table and zoom into the selected track
+  const trackIndex = parseInt(selectedValue);
+  const selectedTrack = geojsonData.features[trackIndex];
+  const time = selectedTrack.properties.Time;
+  const distance = selectedTrack.properties.Distance_km;
+
+  // Set a delay to simulate smooth transition (500ms)
+  setTimeout(() => {
+    document.getElementById('time-value').textContent = time || '----';
+    document.getElementById('distance-value').textContent = distance || '----';
+  }, 500);
+
+  // Zoom to and highlight the selected track
+  zoomToTrack(selectedTrack);
+  highlightTrack(selectedTrack);
+}
+
+
+// Function to zoom to the selected track
+function zoomToTrack(track) {
+  const trackBounds = track.geometry.coordinates[0]; // Coordinates of the selected track
+  const bounds = L.latLngBounds(trackBounds.map(coord => L.latLng(coord[1], coord[0]))); // Create bounds
+  map.fitBounds(bounds); // Zoom to the bounds of the selected track
+}
+
+// Function to highlight the selected track
+let highlightLayer = null; // Global variable for the highlight layer
+
+function highlightTrack(track) {
+  // Remove existing highlight layer if any
+  if (highlightLayer) {
+    map.removeLayer(highlightLayer);
+  }
+
+  // Create new highlight layer
+  highlightLayer = L.geoJSON(track, {
+    style: { color: 'yellow', weight: 3, opacity: 0.7 } // Highlight style
+  }).addTo(map);
+
+  // Optionally, remove the highlight after 2 seconds
+  setTimeout(() => {
+    map.removeLayer(highlightLayer);
+    highlightLayer = null;
+  }, 2000); // Remove after 2 seconds
+}
+//////////////////////////////////////////////////////////dropdown end//////////////////////////////////////////////////////////
 // Style function for polygons
 const polygonStyle = function (feature) {
   // Default style for polygons
@@ -56,7 +227,6 @@ const polygonStyle = function (feature) {
     style.color = '#000000';  // Default border color for other polygons
     style.fillColor = 'lightgreen';  // Default fill color for other polygons
   }
-
   return style;
 };
 
