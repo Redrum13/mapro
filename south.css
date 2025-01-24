@@ -86,7 +86,7 @@ html, body {
       overflow-y: auto;
       font-size: 12px;
       max-height: 15vh;
-      column-count: 2;
+      column-count: 3;
     }
     .col-sm-10 {
       flex: 1;
