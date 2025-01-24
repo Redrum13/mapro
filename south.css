@@ -76,14 +76,14 @@ html, body {
     .text-break {
       flex: 1;
       overflow-x: hidden;
-      overflow-y: auto;
+      /* overflow-y: auto; */
       font-size: 12px;
       max-height: 17vh;
     }
     .list {
       flex: 1;
       overflow-x: hidden;
-      overflow-y: auto;
+      /* overflow-y: auto; */
       font-size: 12px;
       max-height: 15vh;
       column-count: 3;
@@ -91,7 +91,7 @@ html, body {
     .col-sm-10 {
       flex: 1;
       overflow-x: hidden;
-      overflow-y: auto;
+      /* overflow-y: auto; */
       font-size: 12px;
       max-height: 20vh;
     }
