@@ -143,3 +143,70 @@ html, body {
   display: block;
   margin-bottom: 5px;
 }
+
+
+/* Left Pane (for dropdown and table) */
+#left-pane {
+  position: absolute;
+  bottom: 100px;
+  left: 10px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  z-index: 900;
+}
+
+/* Right Pane (for checkboxes) */
+#right-pane {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  z-index: 900;
+}
+
+/* Checkbox Container Styling */
+.checkbox-container {
+  margin-top: 10px;
+}
+
+.checkbox-container label {
+  display: block; /* Ensure each label and checkbox are on a separate line */
+  margin-bottom: 2px; /* Adds space between labels */
+}
+
+/* Custom position for the scale bar */
+.custom-scale-bar {
+  left: 270px;
+}
+
+/* Adjust font size for the measuring tool */
+.leaflet-control-measure {
+  font-size: 12px;
+  z-index: 999
+}
+
+/* Adjust font size for the scale bar */
+.custom-scale-bar .leaflet-control-scale-line {
+  font-size: 12px;  /* Adjust this value as needed */
+}
+
+/* Styling for the top-middle text pane */
+.top-middle-pane {
+  position: absolute;
+  top: 20px; /* 20px from the top */
+  left: 50%;
+  background-color: rgba(0, 0, 0, 0.1); /* 10% transparency */
+  color: whitesmoke;
+  font-size: 24px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  z-index: 999; /* Ensures it stays above other content */
+}
