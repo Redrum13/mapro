@@ -51,6 +51,13 @@ var measure = L.control.measure({
   zIndex: 9999,
 }).addTo(map);
 
+L.control.locate({
+  position: 'topleft',
+  strings: {
+    title: "Where am I?"
+  }
+}).addTo(map);
+
 // Add a custom zoom control
 L.control.zoom({
   position: 'topleft',
