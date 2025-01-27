@@ -71,7 +71,7 @@ html, body {
   }
   @media (max-width: 576px) {
     .fullscreen {
-      height: 210%;
+      height: 190%;
     }
     .main-title {
       font-size: 3rem; /* Reduce font size for mobile screens */
