@@ -3,17 +3,18 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%; /* Ensure the page spans full height */
+  height: 100vh; /* Ensure the page spans full height */
+  overflow-x: hidden;
 }
 
 /* Fullscreen Blank Div */
 .fullscreen {
   width: 100%; /* Full width of the viewport */
-  height: 105%; /* Full height of the viewport */
+  height: 110%; /* Full height of the viewport */
   background-size: cover; /* Ensures the image covers the entire element */
   background-position: center; /* Centers the image */
   background-image: url('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/englischer-garten.jpg');
-  background-repeat: no-repeat; /* Prevents the image from repeating */
+  /* Prevents the image from repeating */
   display: flex; /* Center content flexibly */
   flex-direction: column; /* Stack elements vertically */
   justify-content: center; /* Center vertically */
@@ -23,6 +24,12 @@ html, body {
   text-align: center;
   padding: 1rem; /* Optional padding for spacing */
   box-sizing: border-box; /* Include padding in size calculations */
+}
+ 
+.last-screen{
+  width: 100%; /* Full width of the viewport */
+  height: 88%; /* Full height of the viewport */
+  background-color: #e9e7e7; 
 }
   .main-title {
     font-size: 4rem; /* Increase the font size for prominence */
@@ -40,7 +47,7 @@ html, body {
     text-align: center; /* Optional: Center-align the title */
     letter-spacing: 2px; /* Add spacing between letters for elegance */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9); /* Subtle shadow for depth */
-    background: rgba(163, 214, 184, 0.5); /* Green background with 30% opacity */
+    background: rgba(163, 214, 184, 0.7); /* Green background with 30% opacity */
   }
   .sub-container{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -49,7 +56,7 @@ html, body {
     padding: 0; /* Remove any default padding that might cause overflow */
     margin: 0; /* Remove any default margin that might cause overflow */
     text-shadow: 2px 2px 4px #000000;
-    background: rgba(6, 97, 44, 0.5); /* Green background with 30% opacity */
+    background: rgba(6, 97, 44, 0.8); /* Green background with 30% opacity */
     animation: fadeIn 3s ease-in-out forwards;
   }
   .next-screen {
@@ -59,12 +66,12 @@ html, body {
     padding: 0; /* Remove any default padding that might cause overflow */
     margin: 0; /* Remove any default margin that might cause overflow */
     text-shadow: 4px 4px 4px #000000;
-    background: rgba(36, 54, 44, 0.5); /* Green background with 30% opacity */
+    background: rgba(36, 54, 44, 0.8); /* Green background with 30% opacity */
     animation: fadeIn 3s ease-in-out forwards;
   }
   @media (max-width: 576px) {
     .fullscreen {
-      height: 160%;
+      height: 210%;
     }
     .main-title {
       font-size: 3rem; /* Reduce font size for mobile screens */
@@ -89,38 +96,20 @@ html, body {
       font-size: 12px;
 
     }
-
   }
   @keyframes fadeIn {
     0%{
       opacity: 0; /* Start and end with opacity 0 */
     }
   }
-  
       /* Set the map div to 100% width and height */
       #map {
         width: 100%;
-        height: 100%;
+        height: 88vh;
         .leaflet-control-layers {
             z-index: 999; /* Ensure the legend stays on top */
           }
-          .legend {
-            background: rgba(20, 20, 20, 0.9);
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-          }
-          .legend div {
-            margin-bottom: 5px;
-          }
-          .legend span {
-            width: 20px;
-            height: 20px;
-            display: inline-block;
-            margin-right: 5px;
-          }}
+        }
       /* Controls styling */
 #controls {
   position: absolute;
@@ -155,13 +144,13 @@ html, body {
 /* Right Pane (for checkboxes) */
 #right-pane {
   position: absolute;
-  bottom: 20px;
+  top: 20px;
   right: 10px;
-  background: rgba(224, 218, 218, 0.8);;
+  background: rgba(224, 218, 218, 0.8);
   padding: 15px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 180px;
+  width: 190px;
   z-index: 900;
 }
 

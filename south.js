@@ -83,7 +83,7 @@ const trackNames = [
   'River Loop',
   'Forest Loop',
   'Isar Loop',
-  'Japanese garden loop',
+  'Japanese teehaus loop',
   'Monopetros round',
   'Surfing round',
   'Lake round',
@@ -418,7 +418,7 @@ pointLayerGroup.addTo(map); // Add last to ensure it is on top
 ///////////////////// NEW LEGEND /////////////////////////////////////
 const legendContent = 
   `<div class="legend-container" style="background: rgba(20, 20, 20, 0.9); padding: 10px; border-radius: 5px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); color: white;">
-    <h4 id="legend-title" style="margin-top: 0; margin-bottom: 10px; text-align: center; cursor: pointer;">Map Legend</h4>
+    <h5 id="legend-title" style="margin-top: 0; margin-bottom: 3px; text-align: center; cursor: pointer;">Map Legend</h5>
     <div id="legend-list" style="display: none;">
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
         <span style="display: inline-block; width: 20px; height: 5px; background-color: lightgrey; margin-right: 10px;"></span>
@@ -463,7 +463,7 @@ const legendContent =
   </div>
 `;
 
-const legend = L.control({ position: 'topright' });
+const legend = L.control({ position: 'bottomright' });
 
 legend.onAdd = function (map) {
   const div = L.DomUtil.create('div', 'leaflet-control');
