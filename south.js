@@ -417,7 +417,7 @@ pointLayerGroup.addTo(map); // Add last to ensure it is on top
 
 ///////////////////// NEW LEGEND /////////////////////////////////////
 const legendContent = 
-  `<div class="legend-container" style="background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);">
+  `<div class="legend-container" style="background: rgba(20, 20, 20, 0.9); padding: 10px; border-radius: 5px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); color: white;">
     <h4 id="legend-title" style="margin-top: 0; margin-bottom: 10px; text-align: center; cursor: pointer;">Map Legend</h4>
     <div id="legend-list" style="display: none;">
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
