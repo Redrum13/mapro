@@ -411,7 +411,6 @@ fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/point_fi
             const properties = layer.feature.properties;
 
             const popupContent = `
-              <strong>Point Information</strong><br>
               Name: ${properties.name || 'N/A'}<br>
               Type: ${properties.type || 'N/A'}<br>
               Layer: ${properties.layer || 'N/A'}
