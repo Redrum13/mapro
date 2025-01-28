@@ -28,7 +28,7 @@ L.control.layers(baseLayers, null, { position: 'topleft'}).addTo(map);
 ////////////// Adding the custom location button///////////////////
 const locationButton = L.DomUtil.create('button', 'location-button');
 locationButton.classList.add('location-button');
-locationButton.innerHTML = '📍'; // Use a location icon or any symbol
+locationButton.innerHTML = ''; // Use a location icon or any symbol
 
 // Get the map's container and append the button to it
 const mapContainer = map.getContainer(); // Get the map's container
