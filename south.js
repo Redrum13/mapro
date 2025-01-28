@@ -398,16 +398,38 @@ fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/loop_fin
   .catch(error => console.error('Error loading GeoJSON for walk lines:', error));
 
   // Fetch and display the point GeoJSON
+// Fetch and display the point GeoJSON with hover interaction
 fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/point_fin.geojson')
-.then((response) => response.json())
-.then((geojsonData) => {
-  L.geoJSON(geojsonData, {
-    pointToLayer: (feature, latlng) => L.circleMarker(latlng, pointStyle(feature)),
-  }).addTo(pointLayerGroup);
-})
-.catch((error) => {
-  console.error('Error loading GeoJSON for points:', error);
-});
+  .then((response) => response.json())
+  .then((geojsonData) => {
+    L.geoJSON(geojsonData, {
+      pointToLayer: (feature, latlng) => {
+        return L.circleMarker(latlng, pointStyle(feature))
+          .on('mouseover', (e) => {
+            // Show popup with attributes when hovered over
+            const layer = e.target;
+            const properties = layer.feature.properties;
+
+            const popupContent = `
+              <strong>Point Information</strong><br>
+              Name: ${properties.name || 'N/A'}<br>
+              Type: ${properties.type || 'N/A'}<br>
+              Layer: ${properties.layer || 'N/A'}
+            `;
+            
+            layer.bindPopup(popupContent).openPopup();
+          })
+          .on('mouseout', (e) => {
+            // Close the popup when mouse leaves the point
+            const layer = e.target;
+            layer.closePopup();
+          });
+      }
+    }).addTo(pointLayerGroup);
+  })
+  .catch((error) => {
+    console.error('Error loading GeoJSON for points:', error);
+  });
 
 // Add groups to map in desired order
 polygonLayerGroup.addTo(map);
