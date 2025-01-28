@@ -28,7 +28,7 @@ L.control.layers(baseLayers, null, { position: 'topleft'}).addTo(map);
 ////////////// Adding the custom location button///////////////////
 const locationButton = L.DomUtil.create('button', 'location-button');
 locationButton.classList.add('location-button');
-locationButton.innerHTML = ''; // Use a location icon or any symbol
+locationButton.innerHTML = '📍'; // Use a location icon or any symbol
 
 // Get the map's container and append the button to it
 const mapContainer = map.getContainer(); // Get the map's container
@@ -39,8 +39,18 @@ locationButton.style.position = 'absolute';
 locationButton.style.bottom = '20px';  // Position the button 20px from the bottom
 locationButton.style.right = '20px';   // Position the button 20px from the right
 
-// Create a marker for the user's location (initially set to null)
-let userMarker = null;
+// Initialize and style the blue dot for live location
+const userLocationCircle = L.circleMarker([0, 0], {
+  radius: 15,  // Make the dot bigger
+  fillColor: '#3388ff',  // Blue color
+  color: '#3388ff',  // Blue color for the border
+  weight: 2,  // Border width
+  opacity: 1,
+  fillOpacity: 0.6
+}).addTo(map); // Initially added at (0, 0) until location is found
+
+// Define the minimum zoom level at which we want to show the location
+const minZoomLevel = 10; // Set this to your desired zoom level
 
 // Add functionality for the location button
 locationButton.onclick = function () {
@@ -53,24 +63,24 @@ map.on('locationfound', function (e) {
   const userLatLng = e.latlng; // User's location
   console.log('User location found:', userLatLng);
 
-  // If the marker doesn't exist yet, create it
-  if (!userMarker) {
-    userMarker = L.marker(userLatLng).addTo(map); // No popup added here
-  } else {
-    // Otherwise, just update the marker's position
-    userMarker.setLatLng(userLatLng);
-  }
+  // Check if the map's zoom level is above the minimum required
+  const currentZoom = map.getZoom();
+  if (currentZoom >= minZoomLevel) {
+    // Only update the location if within the acceptable zoom level
+    userLocationCircle.setLatLng(userLatLng);
 
-  // Optionally, update the map's center to the user's location
-  map.setView(userLatLng, 16); // Adjust zoom as needed
+    // Optionally, update the map's center to the user's location
+    map.setView(userLatLng, currentZoom); // Adjust zoom as needed
+  } else {
+    // Hide the user's location if zoom level is too low
+    userLocationCircle.setLatLng([0, 0]); // Move the dot out of view
+  }
 });
 
 // Handle location errors (if the location cannot be found)
 map.on('locationerror', function (e) {
   alert('Location access denied or unavailable');
 });
-
-
 ///////////////////////////////////////////////////////////////////////
 
 // Add scale bar to the bottom left
