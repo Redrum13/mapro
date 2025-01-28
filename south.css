@@ -193,3 +193,40 @@ html, body {
   border-radius: 5px;
   z-index: 999; /* Ensures it stays above other content */
 }
+
+/* Style the location button */
+.location-button {
+  position: relative;
+  top: 145px;
+  left: 12px;
+  width: 30px;
+  height: 30px;
+  background-color: white ; /* Blue color */
+  color: white;
+  border-radius: 5px;
+  font-size: 25px; /* Size of the icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.0);
+  border: none;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.location-button:hover {
+  background-color: 	#4d4d4d; /* Darker blue on hover */
+  transform: scale(1.1); /* Slight zoom effect */
+}
+
+.location-button:active {
+  background-color: #000000; /* Even darker blue on click */
+}
+
+/* Using an image for the location icon */
+.location-button {
+  background-image: url('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/location_icon.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 9999; /* Remove text if using an image */
+}

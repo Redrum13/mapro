@@ -25,6 +25,54 @@ const baseLayers = {
 // Add the layer control to the map
 L.control.layers(baseLayers, null, { position: 'topleft'}).addTo(map);
 
+////////////// Adding the custom location button///////////////////
+const locationButton = L.DomUtil.create('button', 'location-button');
+locationButton.classList.add('location-button');
+locationButton.innerHTML = ''; // Use a location icon or any symbol
+
+// Get the map's container and append the button to it
+const mapContainer = map.getContainer(); // Get the map's container
+mapContainer.appendChild(locationButton);
+
+// Style the button to stay fixed within the map container
+locationButton.style.position = 'absolute';
+locationButton.style.bottom = '20px';  // Position the button 20px from the bottom
+locationButton.style.right = '20px';   // Position the button 20px from the right
+
+// Create a marker for the user's location (initially set to null)
+let userMarker = null;
+
+// Add functionality for the location button
+locationButton.onclick = function () {
+  // Start continuous location tracking
+  map.locate({ setView: true, maxZoom: 16, watch: true });
+};
+
+// Handle successful location detection
+map.on('locationfound', function (e) {
+  const userLatLng = e.latlng; // User's location
+  console.log('User location found:', userLatLng);
+
+  // If the marker doesn't exist yet, create it
+  if (!userMarker) {
+    userMarker = L.marker(userLatLng).addTo(map); // No popup added here
+  } else {
+    // Otherwise, just update the marker's position
+    userMarker.setLatLng(userLatLng);
+  }
+
+  // Optionally, update the map's center to the user's location
+  map.setView(userLatLng, 16); // Adjust zoom as needed
+});
+
+// Handle location errors (if the location cannot be found)
+map.on('locationerror', function (e) {
+  alert('Location access denied or unavailable');
+});
+
+
+///////////////////////////////////////////////////////////////////////
+
 // Add scale bar to the bottom left
 L.control.scale({
   position: 'bottomleft',
