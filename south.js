@@ -14,7 +14,7 @@ const map = L.map('map',{
   zoomControl: false,
   layers: [cartoDBMatterLayer], // Disable default zoom control
   minZoom: 13,          // Minimum zoom level
-  maxZoom: 17          // Maximum zoom level
+  maxZoom: 16          // Maximum zoom level
 }).setView([0, 0], 10); // Set initial view to 0,0 with a zoom level of 2
 
 const baseLayers = {
@@ -41,7 +41,7 @@ locationButton.style.right = '20px';   // Position the button 20px from the righ
 
 // Initialize and style the blue dot for live location
 const userLocationCircle = L.circleMarker([0, 0], {
-  radius: 15,  // Make the dot bigger
+  radius: 9,  // Make the dot bigger
   fillColor: '#3388ff',  // Blue color
   color: '#3388ff',  // Blue color for the border
   weight: 2,  // Border width
@@ -125,7 +125,7 @@ map.createPane('pointPane');
 map.getPane('polygonPane').style.zIndex = 400; // Default overlayPane z-index
 map.getPane('linePane').style.zIndex = 500; 
 map.getPane('walkLinePane').style.zIndex = 550; // Higher than polygonPane
-map.getPane('pointPane').style.zIndex = 650;  // Highest to ensure points are on top
+map.getPane('pointPane').style.zIndex = 700;  // Highest to ensure points are on top
 
 // Create layer groups
 const polygonLayerGroup = L.layerGroup();
@@ -351,17 +351,27 @@ const innerLineStyle = function (feature) {
 };
 
 const pointStyle = (feature) => {
-  let style = {
-    radius: 3,
-    color: '#000',
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8,
-    fillColor: feature.properties.layer === 'Transport' ? 'blue' : 'brown',
-    pane: 'pointPane' // Assign to pointPane
+  const svgIcons = {
+    Bus: 'https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/bus-stop-14-svgrepo-com.svg',
+    Tram: 'https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/Tram_logo.svg',
+    Ubahn: 'https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/Ubahn_logo.svg',
+    monument: 'https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/monument-one-svgrepo-com.svg',
+    building: 'https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/monument-one-svgrepo-com.svg'
   };
-  return style;
+
+  return {
+    iconUrl: svgIcons[feature.properties.type],
+    iconSize: [10, 10],
+  };
 };
+
+
+
+
+
+
+
+
 
   // Fetch and display the polygon GeoJSON
   fetch("https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/merge_2non.geojson")
@@ -462,7 +472,9 @@ fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/point_fi
   .then((geojsonData) => {
     L.geoJSON(geojsonData, {
       pointToLayer: (feature, latlng) => {
-        return L.circleMarker(latlng, pointStyle(feature))
+        return L.marker(latlng, {
+          icon: L.icon(pointStyle(feature)) // Make sure pointStyle returns a proper icon object
+        })
           .on('mouseover', (e) => {
             // Show popup with attributes when hovered over
             const layer = e.target;
@@ -512,13 +524,37 @@ const legendContent =
         <span>Tracks</span>
       </div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: blue; margin-right: 10px; border-radius: 50%; border: 1px solid #000;"></span>
-        <span>Transport Points</span>
-      </div>
+  <img 
+    src="https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/bus-stop-14-svgrepo-com.svg" 
+    alt="Historical Icon" 
+    style="width: 20px; height: 20px; margin-right: 10px;"
+  >
+  <span>Bus</span>
+</div>
+<div style="display: flex; align-items: center; margin-bottom: 5px;">
+  <img 
+    src="https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/Tram_logo.svg" 
+    alt="Historical Icon" 
+    style="width: 20px; height: 20px; margin-right: 10px;"
+  >
+  <span>Tram</span>
+</div>
+<div style="display: flex; align-items: center; margin-bottom: 5px;">
+  <img 
+    src="https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/Ubahn_logo.svg" 
+    alt="Historical Icon" 
+    style="width: 20px; height: 20px; margin-right: 10px;"
+  >
+  <span>Train</span>
+</div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: brown; margin-right: 10px; border-radius: 50%; border: 1px solid #000;"></span>
-        <span>Historical Points</span>
-      </div>
+  <img 
+    src="https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/monument-one-svgrepo-com.svg" 
+    alt="Historical Icon" 
+    style="width: 20px; height: 20px; margin-right: 10px;"
+  >
+  <span>Monuments</span>
+</div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
         <span style="display: inline-block; width: 20px; height: 20px; background-color: darkgreen; margin-right: 10px; border: 1px solid #008000;"></span>
         <span>Forest</span>
