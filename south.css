@@ -123,6 +123,12 @@ html, body {
       width: 100%; /* Full width of the viewport */
       height: 10%; /* Full height of the viewport */
     }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh; /* Ensure the page spans full height */
+      overflow-x: hidden;
+    }
   }
   @keyframes fadeIn {
     0%{
