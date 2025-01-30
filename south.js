@@ -344,7 +344,7 @@ const innerLineStyle = function (feature) {
   // Use Array.includes to check for multiple highway types
   } else if (feature.properties && ['corridor', 'residential', 'secondary', 'service','track'].includes(feature.properties.highway)) {
     style.weight = 4; // Thinner line for these types
-    style.opacity = currentZoom >= 17 ? 1 : 0;
+    style.opacity = currentZoom >= 16 ? 1 : 0;
   }
 
   return style;
