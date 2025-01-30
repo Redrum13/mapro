@@ -25,11 +25,30 @@ html, body {
   padding: 1rem; /* Optional padding for spacing */
   box-sizing: border-box; /* Include padding in size calculations */
 }
+
+.fullscreen-2 {
+  width: 100%; /* Full width of the viewport */
+  height: 110%; /* Full height of the viewport */
+
+  display: flex; /* Center content flexibly */
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  color: white; /* Text color for contrast */
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 1rem; /* Optional padding for spacing */
+  box-sizing: border-box; /* Include padding in size calculations */
+}
  
 .last-screen{
   width: 100%; /* Full width of the viewport */
   height: 88%; /* Full height of the viewport */
   background-color: #e9e7e7; 
+}
+.last{
+  width: 100%; /* Full width of the viewport */
+  height: 10%; /* Full height of the viewport */
 }
   .main-title {
     font-size: 4rem; /* Increase the font size for prominence */
@@ -47,38 +66,39 @@ html, body {
     text-align: center; /* Optional: Center-align the title */
     letter-spacing: 2px; /* Add spacing between letters for elegance */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9); /* Subtle shadow for depth */
-    background: rgba(163, 214, 184, 0.7); /* Green background with 30% opacity */
+    background: rgb(85, 123, 124); /* Green background with 30% opacity */
   }
-  .col-sm-7, .col-sm-2 {
+  .img-resize {
+    width: 250px;  /* Set a fixed width */
+    height: 250px; /* Set a fixed height */
+    object-fit: contain; /* Ensures the image fits within the box without distortion */
+}
+  .box-1, .box-2 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 18px;
     box-sizing: border-box; /* Ensure padding and borders are included in total width/height */
     padding: 0; /* Remove any default padding that might cause overflow */
     margin: 0; /* Remove any default margin that might cause overflow */
-    text-shadow: 2px 2px 4px #000000;
-    background: rgba(6, 97, 44, 0.8); /* Green background with 30% opacity */
-    animation: fadeIn 3s ease-in-out forwards;
+    text-shadow: 2px 2px 4px #000000; 
+    animation: fadeIn 5s ease-in-out forwards;
   }
-  .next-screen {
+ 
+  .box-3 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 18px;
     box-sizing: border-box; /* Ensure padding and borders are included in total width/height */
     padding: 0; /* Remove any default padding that might cause overflow */
     margin: 0; /* Remove any default margin that might cause overflow */
     text-shadow: 4px 4px 4px #000000;
-    background: rgba(36, 54, 44, 0.8); /* Green background with 30% opacity */
-    animation: fadeIn 3s ease-in-out forwards;
+    animation: fadeIn 5s ease-in-out forwards;
   }
   @media (max-width: 576px) {
-    .fullscreen {
-      height: 190%;
-    }
+
     .main-title {
       font-size: 3rem; /* Reduce font size for mobile screens */
     }
     .sub-title {
       font-size: 1rem; /* Reduce font size for mobile screens */  
-      background: rgba(6, 97, 44, 0.5); /* Green background with 30% opacity */
     }
     .text-break {
 
@@ -91,10 +111,17 @@ html, body {
       max-height: 15vh;
       column-count: 3;
     }
-    .col-sm-9 {
+    .box-3 {
 
       font-size: 12px;
 
+    }
+    .img-resize {
+      display: none; /* Completely removes images on smaller screens */
+    }
+    .last{
+      width: 100%; /* Full width of the viewport */
+      height: 10%; /* Full height of the viewport */
     }
   }
   @keyframes fadeIn {
@@ -230,3 +257,9 @@ html, body {
   background-position: center;
   z-index: 9999; /* Remove text if using an image */
 }
+
+/* Hide cluster icons */
+.marker-cluster {
+  display: none;
+}
+

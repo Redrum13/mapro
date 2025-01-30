@@ -352,16 +352,17 @@ const innerLineStyle = function (feature) {
 
 const pointStyle = (feature) => {
   const svgIcons = {
-    Bus: 'https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/bus-stop-14-svgrepo-com.svg',
-    Tram: 'https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/Tram_logo.svg',
-    Ubahn: 'https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/Ubahn_logo.svg',
-    monument: 'https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/monument-one-svgrepo-com.svg',
-    building: 'https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/monument-one-svgrepo-com.svg'
+    Bus: 'bus-stop-14-svgrepo-com.svg',
+    Tram: 'Tram_logo.svg',
+    Ubahn: 'Ubahn_logo.svg',
+    monument: 'monument-one-svgrepo-com.svg',
+    building: 'monument-one-svgrepo-com.svg'
   };
 
   return {
     iconUrl: svgIcons[feature.properties.type],
-    iconSize: [10, 10],
+    iconSize: [20, 20],
+    iconAnchor: [10, 10] // Centers the icon properly
   };
 };
 
@@ -467,34 +468,46 @@ fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/loop_fin
 
   // Fetch and display the point GeoJSON
 // Fetch and display the point GeoJSON with hover interaction
+// Initialize Marker Cluster Group
+const markers = L.markerClusterGroup({ 
+  maxClusterRadius: 20 // Adjust this value to control how close markers need to be before clustering
+});
+
 fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/point_fin.geojson')
   .then((response) => response.json())
   .then((geojsonData) => {
-    L.geoJSON(geojsonData, {
+    const geojsonLayer = L.geoJSON(geojsonData, {
       pointToLayer: (feature, latlng) => {
-        return L.marker(latlng, {
-          icon: L.icon(pointStyle(feature)) // Make sure pointStyle returns a proper icon object
-        })
-          .on('mouseover', (e) => {
-            // Show popup with attributes when hovered over
-            const layer = e.target;
-            const properties = layer.feature.properties;
+        const iconOptions = pointStyle(feature);
 
-            const popupContent = `
-              Name: ${properties.name || 'N/A'}<br>
-              Type: ${properties.type || 'N/A'}<br>
-              Layer: ${properties.layer || 'N/A'}
-            `;
-            
-            layer.bindPopup(popupContent).openPopup();
-          })
-          .on('mouseout', (e) => {
-            // Close the popup when mouse leaves the point
-            const layer = e.target;
-            layer.closePopup();
-          });
+        const marker = L.marker(latlng, {
+          icon: L.icon(iconOptions)
+        });
+
+        marker.on('mouseover', (e) => {
+          const layer = e.target;
+          const properties = layer.feature.properties;
+
+          const popupContent = `
+            Name: ${properties.name || 'N/A'}<br>
+            Type: ${properties.type || 'N/A'}<br>
+            Layer: ${properties.layer || 'N/A'}
+          `;
+
+          layer.bindPopup(popupContent).openPopup();
+        });
+
+        marker.on('mouseout', (e) => {
+          e.target.closePopup();
+        });
+
+        return marker;
       }
-    }).addTo(pointLayerGroup);
+    });
+
+    // Add markers to cluster group
+    markers.addLayer(geojsonLayer);
+    pointLayerGroup.addLayer(markers); // Add to the map
   })
   .catch((error) => {
     console.error('Error loading GeoJSON for points:', error);
@@ -525,7 +538,7 @@ const legendContent =
       </div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
   <img 
-    src="https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/bus-stop-14-svgrepo-com.svg" 
+    src="bus-stop-14-svgrepo-com.svg" 
     alt="Historical Icon" 
     style="width: 20px; height: 20px; margin-right: 10px;"
   >
@@ -533,7 +546,7 @@ const legendContent =
 </div>
 <div style="display: flex; align-items: center; margin-bottom: 5px;">
   <img 
-    src="https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/Tram_logo.svg" 
+    src="Tram_logo.svg" 
     alt="Historical Icon" 
     style="width: 20px; height: 20px; margin-right: 10px;"
   >
@@ -541,7 +554,7 @@ const legendContent =
 </div>
 <div style="display: flex; align-items: center; margin-bottom: 5px;">
   <img 
-    src="https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/Ubahn_logo.svg" 
+    src="Ubahn_logo.svg" 
     alt="Historical Icon" 
     style="width: 20px; height: 20px; margin-right: 10px;"
   >
@@ -549,7 +562,7 @@ const legendContent =
 </div>
       <div style="display: flex; align-items: center; margin-bottom: 5px;">
   <img 
-    src="https://raw.githubusercontent.com/Redrum13/mapro/9ddb5465a4b8e8607e6285cfc608e159c72b9b8e/monument-one-svgrepo-com.svg" 
+    src="monument-one-svgrepo-com.svg" 
     alt="Historical Icon" 
     style="width: 20px; height: 20px; margin-right: 10px;"
   >
