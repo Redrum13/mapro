@@ -451,10 +451,16 @@ fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/loop_fin
       }
     });
 
-    // Add event listeners to checkboxes
     document.querySelectorAll('#right-pane input').forEach(checkbox => {
+      const type = checkbox.value;
+    
+      // Ensure layers are added if the checkbox is checked initially
+      if (checkbox.checked) {
+        layers[type]?.addTo(map);
+      }
+    
+      // Add event listener for changes
       checkbox.addEventListener('change', (event) => {
-        const type = event.target.value;
         if (event.target.checked) {
           layers[type]?.addTo(map);
         } else {
