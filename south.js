@@ -7,7 +7,12 @@ const cartoDBMatterLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/r
 const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   opacity: 0.5, // Set opacity to 50%
-})
+});
+
+const mapbox_token = "pk.eyJ1IjoidmllcmFtIiwiYSI6ImNtNXhvbnF0YTA2YXMya3IzMWdkMWZxcDIifQ.Stn5TXWuNl73vTkm_OoMow";
+const mapbox_url = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles?access_token=${mapbox_token}`;
+const mapboxLayer = L.tileLayer(mapbox_url, {});
+
 
 // Initialize the map container without a predefined view
 const map = L.map('map',{
@@ -20,6 +25,7 @@ const map = L.map('map',{
 const baseLayers = {
   "Esri World Dark Gray": cartoDBMatterLayer,
   "OpenStreetMap": osmLayer,
+  "No background" : mapboxLayer	,
 };
 
 // Add the layer control to the map
@@ -41,12 +47,13 @@ locationButton.style.right = '20px';   // Position the button 20px from the righ
 
 // Initialize and style the blue dot for live location
 const userLocationCircle = L.circleMarker([0, 0], {
-  radius: 9,  // Make the dot bigger
+  radius: 6,
   fillColor: '#3388ff',  // Blue color
   color: '#3388ff',  // Blue color for the border
-  weight: 2,  // Border width
-  opacity: 1,
-  fillOpacity: 0.6
+  weight: 3,  // Border width
+  opacity: 0.8,
+  fillOpacity: 0.6,
+  zIndex: 9999,  // Higher z-index to ensure it is on top
 }).addTo(map); // Initially added at (0, 0) until location is found
 
 // Define the minimum zoom level at which we want to show the location
@@ -195,11 +202,11 @@ function updateTableAndMap() {
     document.getElementById('distance-value').textContent = '----';
 
     // Reset the map view to default coordinates and zoom level (default zoom 10, at coordinates [0, 0])
-    location.reload();
-    return; // Exit the function after reloading
+    map.setView([0, 0], 10); // Change from location.reload() to reset view without reloading
+    return; // Exit the function after resetting view
   }
 
-    // Check if any track checkbox is selected
+  // Check if any track checkbox is selected
   const trackCheckboxes = document.querySelectorAll('#right-pane input[type="checkbox"]');
   let isAnyTrackChecked = false;
   
@@ -215,24 +222,20 @@ function updateTableAndMap() {
     return; // Exit the function, do not proceed with track update
   }
 
-  
   // If a track is selected, proceed to update the table and zoom into the selected track
   const trackIndex = parseInt(selectedValue);
   const selectedTrack = geojsonData.features[trackIndex];
   const time = selectedTrack.properties.Time;
   const distance = selectedTrack.properties.Distance_km;
 
-  // Set a delay to simulate smooth transition (500ms)
-  setTimeout(() => {
-    document.getElementById('time-value').textContent = time || '----';
-    document.getElementById('distance-value').textContent = distance || '----';
-  }, 600);
+  // Update the table values without delay
+  document.getElementById('time-value').textContent = time || '----';
+  document.getElementById('distance-value').textContent = distance || '----';
 
   // Zoom to and highlight the selected track
   zoomToTrack(selectedTrack);
   highlightTrack(selectedTrack);
 }
-
 
 // Function to zoom to the selected track
 function zoomToTrack(track) {
@@ -252,15 +255,46 @@ function highlightTrack(track) {
 
   // Create new highlight layer
   highlightLayer = L.geoJSON(track, {
-    style: { color: 'yellow', weight: 3, opacity: 0.7 } // Highlight style
+    style: { color: 'red', weight: 5, opacity: 0.7, zIndex: 1000 }
   }).addTo(map);
 
-  // Optionally, remove the highlight after 2 seconds
-  setTimeout(() => {
+  // Animate the expansion of the track by 50% in 1.2 seconds
+  const initialWeight = 3; // Initial weight
+  const expandedWeight = initialWeight *4; // 5* larger
+  const duration = 1200; // 1.2 seconds
+  let startTime = null;
+
+  function animateWeight(timestamp) {
+    if (!startTime) startTime = timestamp; // Record the start time of the animation
+    const elapsed = timestamp - startTime;
+
+    // Calculate the current weight based on elapsed time
+    const currentWeight = initialWeight + (expandedWeight - initialWeight) * (elapsed / duration);
+    
+    highlightLayer.setStyle({ weight: currentWeight });
+
+    // Continue animation if not finished
+    if (elapsed < duration) {
+      requestAnimationFrame(animateWeight);
+    } else {
+      // After the animation is complete, remove the layer
+      map.removeLayer(highlightLayer);
+      highlightLayer = null;
+    }
+  }
+
+  // Start animation
+  requestAnimationFrame(animateWeight);
+
+
+setTimeout(() => {
+  if (highlightLayer) {
     map.removeLayer(highlightLayer);
     highlightLayer = null;
-  }, 2000); // Remove after 2 seconds
+  }
+}, 3000); // Remove after 3 seconds
 }
+
 //////////////////////////////////////////////////////////dropdown end//////////////////////////////////////////////////////////
 // Style function for polygons
 const polygonStyle = function (feature) {
