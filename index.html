@@ -108,6 +108,25 @@ document.addEventListener("DOMContentLoaded", () => {
         Then <b>Select a track</b> to <b>zoom in.</b>
         You can always <b>uncheck</b> the tracks that do not interest you.
       </p>
+      <div id="right-pane">
+      <button type="button" class="btn btn-dark" data-bs-toggle="collapse" data-bs-target="#demo"><h6>Tracks</h6></button>
+      <div id="demo" class="collapse">
+      
+        <div class="checkbox-container">
+          <b>Northside walking circuits:</b>
+          <label><input type="checkbox" value="Amphitheater_loop" checked> Amphitheater_loop</label>
+          <label><input type="checkbox" value="Thompsonwiese_loop" checked> Thompsonwiese_loop</label>
+          <label><input type="checkbox" value="River_loop" checked> River_loop</label>
+          <label><input type="checkbox" value="Forest_loop" checked> Forest_loop</label>
+          <label><input type="checkbox" value="Isar_loop" checked> Isar_loop</label>
+        <b>Southside walking circuits:</b>
+          <label><input type="checkbox" value="Japanese_teehaus_round" checked> Japanese_teehaus_round</label>
+          <label><input type="checkbox" value="Monopetros_round" checked> Monopetros_round</label>
+          <label><input type="checkbox" value="Surfing_round" checked> Surfing_round</label>
+          <label><input type="checkbox" value="Lake_round" checked> Lake_round</label>
+        </div>
+        </div>
+      </div>
       <h5>Select a Track:</h5>
       <select id="trackSelect" style="margin-left: 10px;">
         <option value="noTrack">No track selected</option>
@@ -140,26 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
     <div id="map">  
   <!-- Existing checkboxes for toggling walk line layers -->
   <!-- Right Pane for checkboxes -->
-  <div id="right-pane">
-    <button type="button" class="btn btn-dark" data-bs-toggle="collapse" data-bs-target="#demo"><h6>Tracks</h6></button>
-    <div id="demo" class="collapse">
-    
-      <div class="checkbox-container">
-        <b>Northside walking circuits:</b>
-        <label><input type="checkbox" value="Amphitheater_loop" checked> Amphitheater_loop</label>
-        <label><input type="checkbox" value="Thompsonwiese_loop" checked> Thompsonwiese_loop</label>
-        <label><input type="checkbox" value="River_loop" checked> River_loop</label>
-        <label><input type="checkbox" value="Forest_loop" checked> Forest_loop</label>
-        <label><input type="checkbox" value="Isar_loop" checked> Isar_loop</label>
-      <b>Southside walking circuits:</b>
-        <label><input type="checkbox" value="Japanese_teehaus_round" checked> Japanese_teehaus_round</label>
-        <label><input type="checkbox" value="Monopetros_round" checked> Monopetros_round</label>
-        <label><input type="checkbox" value="Surfing_round" checked> Surfing_round</label>
-        <label><input type="checkbox" value="Lake_round" checked> Lake_round</label>
-      </div>
-    </div>
-   
-  </div>
   </div>
   </div>
 </div>
