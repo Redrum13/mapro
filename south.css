@@ -73,9 +73,9 @@ html, body {
     height: 250px; /* Set a fixed height */
     object-fit: contain; /* Ensures the image fits within the box without distortion */
 }
-  .box-1, .box-2 {
+  .box-1 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 18px;
+    font-size: 20px;
     box-sizing: border-box; /* Ensure padding and borders are included in total width/height */
     padding: 0; /* Remove any default padding that might cause overflow */
     margin: 0; /* Remove any default margin that might cause overflow */
@@ -85,7 +85,7 @@ html, body {
  
   .box-3 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 18px;
+    font-size: 20px;
     box-sizing: border-box; /* Ensure padding and borders are included in total width/height */
     padding: 0; /* Remove any default padding that might cause overflow */
     margin: 0; /* Remove any default margin that might cause overflow */
