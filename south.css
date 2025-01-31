@@ -89,7 +89,6 @@ html, body {
     box-sizing: border-box; /* Ensure padding and borders are included in total width/height */
     padding: 0; /* Remove any default padding that might cause overflow */
     margin: 0; /* Remove any default margin that might cause overflow */
-    text-shadow: 4px 4px 4px #000000;
     animation: fadeIn 5s ease-in-out forwards;
   }
   @media (max-width: 576px) {
