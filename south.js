@@ -425,7 +425,7 @@ function highlightTrack(track) {
       map.removeLayer(highlightLayer);
       highlightLayer = null;
     }
-  }, 3000);
+  }, 7000);
 }
 
 function initializeWalkLines(geojsonData) {
@@ -573,7 +573,7 @@ const legendContent =
   </div>
 `;
 
-const legend = L.control({ position: 'bottomright' });
+const legend = L.control({ position: 'topright' });
 
 legend.onAdd = function (map) {
   const div = L.DomUtil.create('div', 'leaflet-control');
