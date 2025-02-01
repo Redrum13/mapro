@@ -132,7 +132,7 @@ map.createPane('pointPane');
 map.getPane('polygonPane').style.zIndex = 400; // Default overlayPane z-index
 map.getPane('linePane').style.zIndex = 500; 
 map.getPane('walkLinePane').style.zIndex = 550; // Higher than polygonPane
-map.getPane('pointPane').style.zIndex = 700;  // Highest to ensure points are on top
+map.getPane('pointPane').style.zIndex = 1000;  // Highest to ensure points are on top
 
 // Create layer groups
 const polygonLayerGroup = L.layerGroup();
@@ -391,11 +391,11 @@ function highlightTrack(track) {
   // Ensure the highlight is in a separate pane above other layers
   if (!map.getPane('highlightPane')) {
     map.createPane('highlightPane');
-    map.getPane('highlightPane').style.zIndex = 650; // Set a high stacking order
+    map.getPane('highlightPane').style.zIndex = 500; // Set a high stacking order
   }
 
   highlightLayer = L.geoJSON(track, {
-    style: { color: 'yellow', weight: 4, opacity: 0.7 },
+    style: { color: 'yellow', weight: 5, opacity: 0.8 },
     pane: 'highlightPane' // Assign highlight to this pane
   }).addTo(map);
 
