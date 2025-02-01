@@ -17,7 +17,7 @@ const mapboxLayer = L.tileLayer(mapbox_url, {});
 // Initialize the map container without a predefined view
 const map = L.map('map',{
   zoomControl: false,
-  layers: [cartoDBMatterLayer], // Disable default zoom control
+  layers: [mapboxLayer], // Disable default zoom control
   minZoom: 13,          // Minimum zoom level
   maxZoom: 18          // Maximum zoom level
 }).setView([0, 0], 10); // Set initial view to 0,0 with a zoom level of 2
@@ -154,146 +154,6 @@ const trackNames = [
   'Lake round',
 ];
 
-// Variable to store GeoJSON data for tracks
-let geojsonData = null;
-
-// Fetch GeoJSON data for tracks
-fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/loop_final.geojson')
-  .then(response => response.json())
-  .then(data => {
-    geojsonData = data;  // Store GeoJSON data
-    populateTrackDropdown(); // Populate dropdown with track names
-  })
-  .catch(error => console.error('Error fetching GeoJSON data:', error));
-
-// Populate dropdown with manually defined track names
-function populateTrackDropdown() {
-  const trackSelect = document.getElementById('trackSelect');
-  
-  // Add the "No track selected" option only if not already present
-  if (!document.querySelector('#trackSelect option[value="noTrack"]')) {
-    const noTrackOption = document.createElement('option');
-    noTrackOption.value = 'noTrack';
-    noTrackOption.textContent = 'No track selected';
-    trackSelect.appendChild(noTrackOption);
-  }
-
-  // Populate dropdown with manually defined track names
-  trackNames.forEach((trackName, index) => {
-    const option = document.createElement('option');
-    option.value = index;  // Use index for track identification
-    option.textContent = trackName;  // Manually set track name
-    trackSelect.appendChild(option);
-  });
-
-  // Add event listener to dropdown to trigger table/map updates
-  trackSelect.addEventListener('change', updateTableAndMap);
-}
-
-//////////////////////////////////////////////////////////////////
-// Function to update the table and map when a track is selected
-function updateTableAndMap() {
-  const trackSelect = document.getElementById('trackSelect');
-  const selectedValue = trackSelect.value;
-  
-  // Reset table values and zoom to default if "noTrack" is selected
-  if (selectedValue === "noTrack") {
-    document.getElementById('time-value').textContent = '----';
-    document.getElementById('distance-value').textContent = '----';
-
-    // Reset the map view to default coordinates and zoom level (default zoom 10, at coordinates [0, 0])
-    map.setView([0, 0], 10); // Change from location.reload() to reset view without reloading
-    return; // Exit the function after resetting view
-  }
-
-  // Check if any track checkbox is selected
-  const trackCheckboxes = document.querySelectorAll('#right-pane input[type="checkbox"]');
-  let isAnyTrackChecked = false;
-  
-  trackCheckboxes.forEach(checkbox => {
-    if (checkbox.checked) {
-      isAnyTrackChecked = true;
-    }
-  });
-
-  // If no checkboxes are checked, show a pop-up reminder
-  if (!isAnyTrackChecked) {
-    alert('Please toggle on at least one track to view it on the map!');
-    return; // Exit the function, do not proceed with track update
-  }
-
-  // If a track is selected, proceed to update the table and zoom into the selected track
-  const trackIndex = parseInt(selectedValue);
-  const selectedTrack = geojsonData.features[trackIndex];
-  const time = selectedTrack.properties.Time;
-  const distance = selectedTrack.properties.Distance_km;
-
-  // Update the table values without delay
-  document.getElementById('time-value').textContent = time || '----';
-  document.getElementById('distance-value').textContent = distance || '----';
-
-  // Zoom to and highlight the selected track
-  zoomToTrack(selectedTrack);
-  highlightTrack(selectedTrack);
-}
-
-// Function to zoom to the selected track
-function zoomToTrack(track) {
-  const trackBounds = track.geometry.coordinates[0]; // Coordinates of the selected track
-  const bounds = L.latLngBounds(trackBounds.map(coord => L.latLng(coord[1], coord[0]))); // Create bounds
-  map.fitBounds(bounds); // Zoom to the bounds of the selected track
-}
-
-// Function to highlight the selected track
-let highlightLayer = null; // Global variable for the highlight layer
-
-function highlightTrack(track) {
-  // Remove existing highlight layer if any
-  if (highlightLayer) {
-    map.removeLayer(highlightLayer);
-  }
-
-  // Create new highlight layer
-  highlightLayer = L.geoJSON(track, {
-    style: { color: 'red', weight: 5, opacity: 0.7, zIndex: 1000 }
-  }).addTo(map);
-
-  // Animate the expansion of the track by 50% in 1.2 seconds
-  const initialWeight = 3; // Initial weight
-  const expandedWeight = initialWeight *4; // 5* larger
-  const duration = 1200; // 1.2 seconds
-  let startTime = null;
-
-  function animateWeight(timestamp) {
-    if (!startTime) startTime = timestamp; // Record the start time of the animation
-    const elapsed = timestamp - startTime;
-
-    // Calculate the current weight based on elapsed time
-    const currentWeight = initialWeight + (expandedWeight - initialWeight) * (elapsed / duration);
-    
-    highlightLayer.setStyle({ weight: currentWeight });
-
-    // Continue animation if not finished
-    if (elapsed < duration) {
-      requestAnimationFrame(animateWeight);
-    } else {
-      // After the animation is complete, remove the layer
-      map.removeLayer(highlightLayer);
-      highlightLayer = null;
-    }
-  }
-
-  // Start animation
-  requestAnimationFrame(animateWeight);
-
-
-setTimeout(() => {
-  if (highlightLayer) {
-    map.removeLayer(highlightLayer);
-    highlightLayer = null;
-  }
-}, 3000); // Remove after 3 seconds
-}
 
 //////////////////////////////////////////////////////////dropdown end//////////////////////////////////////////////////////////
 // Style function for polygons
@@ -465,46 +325,128 @@ fetch("https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/final_tr
   });
 
 // Toggle walk line visibility
+let geojsonData = null;
+
 fetch('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/loop_final.geojson')
   .then(response => response.json())
-  .then(geojsonData => {
-    const layers = {};
-
-    // Add walk lines grouped by type
-    L.geoJSON(geojsonData, {
-      style: (feature) => ({
-        color: 'red',
-        weight: 2,
-        opacity: 1,
-        pane: 'walkLinePane'
-      }),
-      onEachFeature: (feature, layer) => {
-        const type = feature.properties.Name;
-        if (!layers[type]) layers[type] = L.layerGroup();
-        layers[type].addLayer(layer);
-      }
-    });
-
-    document.querySelectorAll('#right-pane input').forEach(checkbox => {
-      const type = checkbox.value;
-    
-      // Ensure layers are added if the checkbox is checked initially
-      if (checkbox.checked) {
-        layers[type]?.addTo(map);
-      }
-    
-      // Add event listener for changes
-      checkbox.addEventListener('change', (event) => {
-        if (event.target.checked) {
-          layers[type]?.addTo(map);
-        } else {
-          layers[type]?.remove();
-        }
-      });
-    });
-
+  .then(data => {
+    geojsonData = data;
+    populateTrackDropdown(geojsonData);
+    initializeWalkLines(geojsonData);
   })
-  .catch(error => console.error('Error loading GeoJSON for walk lines:', error));
+  .catch(error => console.error('Error loading GeoJSON:', error));
+
+function populateTrackDropdown(geojsonData) {
+  const trackSelect = document.getElementById('trackSelect');
+  if (!document.querySelector('#trackSelect option[value="noTrack"]')) {
+    const noTrackOption = document.createElement('option');
+    noTrackOption.value = 'noTrack';
+    noTrackOption.textContent = 'No track selected';
+    trackSelect.appendChild(noTrackOption);
+  }
+
+  geojsonData.features.forEach((feature, index) => {
+    const option = document.createElement('option');
+    option.value = index;
+    option.textContent = feature.properties.Name;
+    trackSelect.appendChild(option);
+  });
+
+  trackSelect.addEventListener('change', () => updateTableAndMap(geojsonData));
+}
+
+function updateTableAndMap(geojsonData) {
+  const trackSelect = document.getElementById('trackSelect');
+  const selectedValue = trackSelect.value;
+  if (selectedValue === "noTrack") {
+    document.getElementById('time-value').textContent = '----';
+    document.getElementById('distance-value').textContent = '----';
+    map.setView([0, 0], 10);
+    return;
+  }
+
+  if (![...document.querySelectorAll('#right-pane input[type="checkbox"]')].some(cb => cb.checked)) {
+    alert('Please toggle on at least one track to view it on the map!');
+    return;
+  }
+
+  const trackIndex = parseInt(selectedValue);
+  const selectedTrack = geojsonData.features[trackIndex];
+  document.getElementById('time-value').textContent = selectedTrack.properties.Time || '----';
+  document.getElementById('distance-value').textContent = selectedTrack.properties.Distance_km || '----';
+  zoomToTrack(selectedTrack);
+  highlightTrack(selectedTrack);
+}
+
+function zoomToTrack(track) {
+  const bounds = L.latLngBounds(track.geometry.coordinates[0].map(coord => L.latLng(coord[1], coord[0])));
+  map.fitBounds(bounds);
+}
+
+let highlightLayer = null;
+
+function highlightTrack(track) {
+  if (highlightLayer) map.removeLayer(highlightLayer);
+
+  // Ensure the highlight is in a separate pane above other layers
+  if (!map.getPane('highlightPane')) {
+    map.createPane('highlightPane');
+    map.getPane('highlightPane').style.zIndex = 650; // Set a high stacking order
+  }
+
+  highlightLayer = L.geoJSON(track, {
+    style: { color: 'red', weight: 5, opacity: 0.7 },
+    pane: 'highlightPane' // Assign highlight to this pane
+  }).addTo(map);
+
+  const initialWeight = 3, expandedWeight = 12, duration = 1200;
+  let startTime = null;
+
+  function animateWeight(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const elapsed = timestamp - startTime;
+
+    // Calculate the animation progression
+    const currentWeight = initialWeight + (expandedWeight - initialWeight) * (elapsed / duration);
+    highlightLayer.setStyle({ weight: currentWeight });
+
+    if (elapsed < duration) {
+      requestAnimationFrame(animateWeight);
+    } else {
+      map.removeLayer(highlightLayer);
+      highlightLayer = null;
+    }
+  }
+
+  requestAnimationFrame(animateWeight);
+
+  setTimeout(() => {
+    if (highlightLayer) {
+      map.removeLayer(highlightLayer);
+      highlightLayer = null;
+    }
+  }, 3000);
+}
+
+function initializeWalkLines(geojsonData) {
+  const layers = {};
+  geojsonData.features.forEach(feature => {
+    const type = feature.properties.Name;
+    if (!layers[type]) layers[type] = L.layerGroup();
+    layers[type].addLayer(L.geoJSON(feature, {
+      style: { color: 'red', weight: 2, opacity: 1, pane: 'walkLinePane' }
+    }));
+  });
+
+  document.querySelectorAll('#right-pane input').forEach(checkbox => {
+    const type = checkbox.value;
+    if (checkbox.checked) layers[type]?.addTo(map);
+    checkbox.addEventListener('change', e => {
+      e.target.checked ? layers[type]?.addTo(map) : layers[type]?.remove();
+    });
+  });
+}
+
 
   // Fetch and display the point GeoJSON
 // Fetch and display the point GeoJSON with hover interaction
