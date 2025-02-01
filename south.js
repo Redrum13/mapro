@@ -19,7 +19,7 @@ const map = L.map('map',{
   zoomControl: false,
   layers: [mapboxLayer], // Disable default zoom control
   minZoom: 13,          // Minimum zoom level
-  maxZoom: 18          // Maximum zoom level
+  maxZoom: 17          // Maximum zoom level
 }).setView([0, 0], 10); // Set initial view to 0,0 with a zoom level of 2
 
 const baseLayers = {
@@ -395,37 +395,37 @@ function highlightTrack(track) {
   }
 
   highlightLayer = L.geoJSON(track, {
-    style: { color: 'red', weight: 5, opacity: 0.7 },
+    style: { color: 'yellow', weight: 4, opacity: 0.7 },
     pane: 'highlightPane' // Assign highlight to this pane
   }).addTo(map);
 
-  const initialWeight = 3, expandedWeight = 12, duration = 1200;
-  let startTime = null;
+  // const initialWeight = 3, expandedWeight = 12, duration = 1200;
+  // let startTime = null;
 
-  function animateWeight(timestamp) {
-    if (!startTime) startTime = timestamp;
-    const elapsed = timestamp - startTime;
+  // function animateWeight(timestamp) {
+  //   if (!startTime) startTime = timestamp;
+  //   const elapsed = timestamp - startTime;
 
-    // Calculate the animation progression
-    const currentWeight = initialWeight + (expandedWeight - initialWeight) * (elapsed / duration);
-    highlightLayer.setStyle({ weight: currentWeight });
+  //   // Calculate the animation progression
+  //   const currentWeight = initialWeight + (expandedWeight - initialWeight) * (elapsed / duration);
+  //   highlightLayer.setStyle({ weight: currentWeight });
 
-    if (elapsed < duration) {
-      requestAnimationFrame(animateWeight);
-    } else {
-      map.removeLayer(highlightLayer);
-      highlightLayer = null;
-    }
-  }
+  //   if (elapsed < duration) {
+  //     requestAnimationFrame(animateWeight);
+  //   } else {
+  //     map.removeLayer(highlightLayer);
+  //     highlightLayer = null;
+  //   }
+  // }
 
-  requestAnimationFrame(animateWeight);
+  // requestAnimationFrame(animateWeight);
 
-  setTimeout(() => {
-    if (highlightLayer) {
-      map.removeLayer(highlightLayer);
-      highlightLayer = null;
-    }
-  }, 7000);
+  // setTimeout(() => {
+  //   if (highlightLayer) {
+  //     map.removeLayer(highlightLayer);
+  //     highlightLayer = null;
+  //   }
+  // }, 7000);
 }
 
 function initializeWalkLines(geojsonData) {

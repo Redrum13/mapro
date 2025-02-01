@@ -34,9 +34,9 @@
       <div class="fullscreen-2">
         <div class="container-fluid">
           <div class="row text-white text-center">
-            <div class="box-1 col-sm-12">
-              <h1 class="bg-success shadow-lg">EXPLORE</h1>
-              <p class="text-break bg-dark shadow-lg">The English Garden in Munich is the <b>largest inner-city parks </b> in the world.<br> 
+            <div class="box-1 col-sm-12 bg-success">
+              <h1 class=" shadow-lg">EXPLORE</h1>
+              <p class="text-breakshadow-lg">The English Garden in Munich is the <b>largest inner-city parks </b> in the world.<br> 
                 Explore the <b>Chinese Tower</b>, stroll along the <b>Isar</b>, or take in the breathtaking panoramic views from the
                  <b>Monopteros</b>. With every step, you’ll uncover a new story, a quiet moment, or a vibrant gathering spot. 
                  Whether you're meandering through the woods in the <b>quieter northern</b> section or marveling at the 
@@ -63,12 +63,12 @@
           </div>        
 
         <div class="next-screen p-3 text-white">
-          <div class="box-3 row text-white">
-            <div class="col-sm-2">
-              <h1 class="border-bottom bg-dark shadow-lg">About the Map</h1>
+          <div class="box-3 row text-white bg-dark">
+            <div class="col-sm-2 ">
+              <h1 class="border-bottom shadow-lg">About the Map</h1>
             </div>
             <div class="col-sm-10 text-break text-start p-12">
-             <p class="bg-success  shadow-lg">
+             <p class="shadow-lg">
               The <b> Walk map for the English Garden </b> was made by the creators with one goal in mind: 
               To reduce the decision-making time of finding which route to take for a walk.<br> 
               The estimated <b>time</b> and <b>distance</b> can be seen for all <b>predefined routes</b> along with the <b>nearest transport stations</b>. 
@@ -96,25 +96,27 @@ document.addEventListener("DOMContentLoaded", () => {
         Then <b>Select a track</b> to <b>zoom in.</b>
         You can always <b>uncheck</b> the tracks that do not interest you.
       </p>
-      <div id="right-pane">
-      <button type="button" class="btn btn-dark" data-bs-toggle="collapse" data-bs-target="#demo"><h6>Tracks</h6></button>
-      <div id="demo" class="collapse">
+      <div id="right-pane" class="d-flex align-items-center">
+        <div class="dropdown ms-2">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            Tracks
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li class="dropdown-header small"><b>Northside walking circuits:</b></li>
+            <li><label class="dropdown-item small"><input type="checkbox" value="Amphitheater_loop" checked> Amphitheater_loop</label></li>
+            <li><label class="dropdown-item small"><input type="checkbox" value="Thompsonwiese_loop" checked> Thompsonwiese_loop</label></li>
+            <li><label class="dropdown-item small"><input type="checkbox" value="River_loop" checked> River_loop</label></li>
+            <li><label class="dropdown-item small"><input type="checkbox" value="Forest_loop" checked> Forest_loop</label></li>
+            <li><label class="dropdown-item small"><input type="checkbox" value="Isar_loop" checked> Isar_loop</label></li>
+            <li class="dropdown-header small"><b>Southside walking circuits:</b></li>
+            <li><label class="dropdown-item small"><input type="checkbox" value="Japanese_teehaus_round" checked> Japanese_teehaus_round</label></li>
+            <li><label class="dropdown-item small"><input type="checkbox" value="Monopetros_round" checked> Monopetros_round</label></li>
+            <li><label class="dropdown-item small"><input type="checkbox" value="Surfing_round" checked> Surfing_round</label></li>
+            <li><label class="dropdown-item small"><input type="checkbox" value="Lake_round" checked> Lake_round</label></li>
+          </ul>
+        </div>
+      </div>      
       
-        <div class="checkbox-container">
-          <b>Northside walking circuits:</b>
-          <label><input type="checkbox" value="Amphitheater_loop" checked> Amphitheater_loop</label>
-          <label><input type="checkbox" value="Thompsonwiese_loop" checked> Thompsonwiese_loop</label>
-          <label><input type="checkbox" value="River_loop" checked> River_loop</label>
-          <label><input type="checkbox" value="Forest_loop" checked> Forest_loop</label>
-          <label><input type="checkbox" value="Isar_loop" checked> Isar_loop</label>
-        <b>Southside walking circuits:</b>
-          <label><input type="checkbox" value="Japanese_teehaus_round" checked> Japanese_teehaus_round</label>
-          <label><input type="checkbox" value="Monopetros_round" checked> Monopetros_round</label>
-          <label><input type="checkbox" value="Surfing_round" checked> Surfing_round</label>
-          <label><input type="checkbox" value="Lake_round" checked> Lake_round</label>
-        </div>
-        </div>
-      </div>
       <h5>Select a Track:</h5>
       <select id="trackSelect" style="margin-left: 10px;">
         <option value="noTrack">No track selected</option>
