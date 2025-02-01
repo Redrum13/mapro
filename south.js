@@ -19,7 +19,7 @@ const map = L.map('map',{
   zoomControl: false,
   layers: [cartoDBMatterLayer], // Disable default zoom control
   minZoom: 13,          // Minimum zoom level
-  maxZoom: 16          // Maximum zoom level
+  maxZoom: 18          // Maximum zoom level
 }).setView([0, 0], 10); // Set initial view to 0,0 with a zoom level of 2
 
 const baseLayers = {
