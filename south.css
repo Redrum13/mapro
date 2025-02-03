@@ -184,22 +184,13 @@ html, body {
       max-height: 15vh;
       column-count: 3;
     }
-    .box-1 {
-      font-family: 'Cinzel', 'Papyrus', 'Fantasy', serif;
+    .box-1, .box-3 {
+      font-family: 'Cormorant Garamond', serif;
       font-size: 14px;
       box-sizing: border-box; /* Ensure padding and borders are included in total width/height */
       padding: 0; /* Remove any default padding that might cause overflow */
       margin: 0; /* Remove any default margin that might cause overflow */
       text-shadow: 2px 2px 4px #000000; 
-      animation: fadeIn 5s ease-in-out forwards;
-    }
-   
-    .box-3 {
-      font-family: 'Cinzel', 'Papyrus', 'Fantasy', serif;
-      font-size: 14px;
-      box-sizing: border-box; /* Ensure padding and borders are included in total width/height */
-      padding: 0; /* Remove any default padding that might cause overflow */
-      margin: 0; /* Remove any default margin that might cause overflow */
       animation: fadeIn 5s ease-in-out forwards;
     }
     .img-resize {
