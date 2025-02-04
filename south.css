@@ -126,10 +126,7 @@ html, body {
   height: 80%; /* Full height of the viewport */
   background-color: #e9e7e7; 
 }
-.last{
-  width: 100%; /* Full width of the viewport */
-  height: 10%; /* Full height of the viewport */
-}
+
   .main-title {
     font-size: 5rem; /* Increase the font size for prominence */
     font-weight: 800; /* Bold weight for emphasis */
@@ -212,6 +209,14 @@ html, body {
     .navbar-nav .nav-item {
       margin: 10px 0; /* Increased spacing between links */
     }
+    .dropdown-menu {
+      display: contents;
+      overflow-x: auto;
+      overflow-y: auto;
+      width: 100vw;
+      font-size: 6px;
+      columns: 0;
+    }
   }
   #demo {
     max-width: 150%;
@@ -238,6 +243,10 @@ html, body {
     margin: auto;
     font-size: 14px
   }
+  .dropdown-menu {
+    columns: 2;
+  }
+
   @keyframes fadeIn {
     0%{
       opacity: 0; /* Start and end with opacity 0 */
