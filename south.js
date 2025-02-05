@@ -228,9 +228,9 @@ const innerLineStyle = function (feature) {
 
   // Check the properties and apply styles accordingly
   if (feature.properties && ['trunk','unclassified'].includes(feature.properties.highway)){
-    style.weight = 6;     // Thicker inner line for "trunk"
+    style.weight = 6.5;     // Thicker inner line for "trunk"
   } else if (feature.properties && ['path','cycleway'].includes(feature.properties.highway)){
-  style.weight = 5;   // Medium inner line
+  style.weight = 5.5;   // Medium inner line
   style.opacity = currentZoom >= 15 ? 1 : 0;
   } else if (feature.properties && ['bridleway', 'steps','footway' ].includes(feature.properties.highway)){
   style.weight = 5;   // Medium inner line
