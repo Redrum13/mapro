@@ -1,372 +1,515 @@
-    /* Set the html and body to 100% height */
-/* Reset body and html for fullscreen behavior */
+/* ==========================================
+   ENGLISH GARDEN CIRCUITS — Elegant Redesign
+   Aesthetic: Refined naturalist / editorial
+   ========================================== */
+
+:root {
+  --cream: #f5f0e8;
+  --parchment: #ede7d9;
+  --moss: #4a6741;
+  --forest: #2d4a28;
+  --sage: #7a9b72;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --charcoal: #1e2420;
+  --warm-gray: #8a857c;
+  --ivory: #fdfaf5;
+  --shadow-green: rgba(45, 74, 40, 0.15);
+}
+
 html, body {
   margin: 0;
   padding: 0;
-  height: 100vh; /* Ensure the page spans full height */
+  height: 100vh;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  background-color: var(--charcoal);
 }
 
-/* Fullscreen Blank Div */
+/* ── HERO SECTION ─────────────────────────── */
 .fullscreen {
   position: relative;
-  width: 100%; /* Full width of the viewport */
-  height: 110%; /* Full height of the viewport */
-  z-index: 99;
-  background-size: cover; /* Ensures the image covers the entire element */
-  background-position: center; /* Centers the image */
+  width: 100%;
+  height: 100vh;
   background-image: url('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/englischer-garten.jpg');
-  /* Prevents the image from repeating */
-  display: flex; /* Center content flexibly */
-  flex-direction: column; /* Stack elements vertically */
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
-  color: white; /* Text color for contrast */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
   text-align: center;
-  padding: 1rem; /* Optional padding for spacing */
-  box-sizing: border-box; /* Include padding in size calculations */
-  text-shadow: 
-    3px 3px 5px black, /* Black shadow */
-    0 0 10px rgba(255, 255, 255, 0.8), /* Outer white glow */
-    0 0 20px rgba(255, 255, 255, 0.6); /* Soft glow */
+  box-sizing: border-box;
 }
 
 .fullscreen::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.45);
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 25, 15, 0.55) 0%,
+    rgba(15, 25, 15, 0.35) 50%,
+    rgba(15, 25, 15, 0.75) 100%
+  );
 }
 
 .header {
   position: relative;
   z-index: 100;
+  padding: 2rem;
 }
 
+.main-title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 800;
+  font-family: 'Cinzel Decorative', 'Garamond', serif;
+  letter-spacing: 3px;
+  line-height: 1.1;
+  color: #fff;
+  text-shadow:
+    0 2px 4px rgba(0,0,0,0.6),
+    0 0 60px rgba(201, 168, 76, 0.25);
+  margin-bottom: 0.75rem;
+}
+
+.sub-title {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 300;
+  font-family: 'Merriweather', serif;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── NAVBAR ───────────────────────────────── */
 .custom-navbar {
-  background: rgba(0, 0, 0, 0.5); /* Fully transparent background */
-  padding: 15px 0; /* More padding for better positioning */
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: 22px; /* Increase font size */
+  position: relative;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 12px 0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
   text-align: center;
-  width:75%;
-  margin: 0 auto; /* Center horizontally */
-  border-radius: 10px; /* Optional: Rounded corners for a better look */
+  width: 65%;
+  margin: 1.5rem auto 0;
+  border-radius: 50px;
+  letter-spacing: 3px;
 }
 
-/* Centering the Nav Links */
 .navbar-nav {
-  position: relative;
   display: flex;
-  justify-content: center; /* Center align the links */
-  width: 100%;
-}
-
-/* Add more space between links */
-.navbar-nav .nav-item {
-  margin: 0 50px; /* Increased spacing between links */
-}
-
-/* Style for Nav Links */
-.navbar-nav .nav-link {
-  position: relative;
-  color: #89f389; /* Lime Green - Vibrant yet calming */
-  letter-spacing: 2px;
-  padding: 0px 15px; /* More padding for better spacing */
-  transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
-  display: inline-block;
-  text-shadow: 2px 2px 6px black; /* Subtle black shadow */
-}
-
-/* Halo Effect */
-.navbar-nav .nav-link::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 140%;
-  height: 140%;
-  background: radial-gradient(circle, rgba(50, 205, 50, 0.3), transparent); /* Soft green glow */
-  border-radius: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.3s ease-in-out;
-}
-
-/* Hover Effect */
-.navbar-nav .nav-link:hover {
-  color: #00ff80; /* Mint Green - Slightly brighter on hover */
-  text-shadow: 3px 3px 8px black, 0px 0px 10px #00ff80; /* Soft green glow effect */
-}
-
-
-
-.fullscreen-2 {
-  width: 100%; /* Full width of the viewport */
-  height: 130%; /* Full height of the viewport */
-  background:rgba(0, 0, 0, 0.4);
-  display: flex; /* Center content flexibly */
-  flex-direction: column; /* Stack elements vertically */
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
-  color: white; /* Text color for contrast */
-  font-family: Arial, sans-serif;
-  text-align: center;
-  padding: 1rem; /* Optional padding for spacing */
-  box-sizing: border-box; /* Include padding in size calculations */
-}
- 
-.last-screen{
-  width: 100%; /* Full width of the viewport */
-  height: 80%; /* Full height of the viewport */
-  background-color: #e9e7e7; 
-}
-
-  .main-title {
-    font-size: 5rem; /* Increase the font size for prominence */
-    font-weight: 800; /* Bold weight for emphasis */
-    font-family: 'Great Vibes', 'Cinzel Decorative', 'Garamond', serif;
-    text-align: center; /* Optional: Center-align the title */
-    letter-spacing: 2px; /* Add spacing between letters for elegance */
-    z-index: 100;
-  
-  }
-  .sub-title {
-    font-size: 2rem; /* Increase the font size for prominence */
-    font-weight: 400; 
-    font-family: 'Playfair Display', 'Lora', 'Merriweather', serif;
-    text-align: center; /* Optional: Center-align the title */
-    letter-spacing: 2px; /* Add spacing between letters for elegance */
-    border-radius: 10px; /* Rounded corners */
-    z-index: 100;
-  }
-  .img-resize {
-    width: 250px;  /* Set a fixed width */
-    height: 250px; /* Set a fixed height */
-    object-fit: contain; /* Ensures the image fits within the box without distortion */
-}
-.box-1, .box-3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  box-sizing: border-box;
-  padding: 15px; /* Increased padding for better text spacing */
-  margin: 0;
-  border-radius: 10px; /* Rounded corners */
-  text-shadow: 2px 2px 4px #000000;
-  animation: fadeIn 5s ease-in-out forwards;
-  background-color: rgba(255, 255, 255, 0.1); /* Optional: Adds a slight background for visibility */
-}
-
-  @media (max-width: 576px) {
-
-    .main-title {
-      font-size: 3rem; /* Reduce font size for mobile screens */
-    }
-    .sub-title {
-      font-size: 1rem; /* Reduce font size for mobile screens */  
-    }
-    .text-break {
-
-      font-size: 12px;
-
-    }
-    .list {
-
-      font-size: 12px;
-      max-height: 15vh;
-      column-count: 3;
-    }
-    .box-1, .box-3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 14px;
-      box-sizing: border-box; /* Ensure padding and borders are included in total width/height */
-      padding: 0; /* Remove any default padding that might cause overflow */
-      margin: 0; /* Remove any default margin that might cause overflow */
-      text-shadow: 2px 2px 4px #000000; 
-      animation: fadeIn 5s ease-in-out forwards;
-    }
-    .img-resize {
-      display: none; /* Completely removes images on smaller screens */
-    }
-    .last{
-      width: 100%; /* Full width of the viewport */
-      height: 10%; /* Full height of the viewport */
-    }
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100vh; /* Ensure the page spans full height */
-      overflow-x: hidden;
-    }
-    .custom-navbar {
-      font-size: 16px;
-    }
-    .navbar-nav .nav-item {
-      margin: 10px 0; /* Increased spacing between links */
-    }
-    .dropdown-menu {
-      display: contents;
-      overflow-x: auto;
-      overflow-y: auto;
-      width: 100vw;
-      font-size: 6px;
-      columns: 0;
-    }
-  }
-  #demo {
-    max-width: 150%;
-    max-height: 150px;
-    overflow-y: auto;
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 200px;
-  }
-  .btn {
-    background-color: #343a40; /* Dark color (Bootstrap dark theme) */
-    color: white; /* Text color */
-    border: none; /* Remove default border */
-    padding: 10px 20px; /* Add padding for better spacing */
-    font-size: 16px; /* Adjust font size */
-    font-weight: bold; /* Make text bold */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4), -4px -4px 8px rgba(255, 255, 255, 0.1); /* Beveled effect */
-  }
-  .checkbox-container {
-    max-width: 500px;
-    margin: auto;
-    font-size: 14px
-  }
-  .dropdown-menu {
-    columns: 2;
-  }
-
-  @keyframes fadeIn {
-    0%{
-      opacity: 0; /* Start and end with opacity 0 */
-    }
-  }
-      /* Set the map div to 100% width and height */
-      #map {
-        width: 100%;
-        height: 80vh;
-        .leaflet-control-layers {
-            z-index: 999; /* Ensure the legend stays on top */
-          }
-        }
-      /* Controls styling */
-#controls {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-}
-
-#controls label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-
-/* Left Pane (for dropdown and table) */
-#left-pane {
-  position: absolute;
-  bottom: 100px;
-  left: 10px;
-  background-color: white;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 250px;
-  z-index: 900;
-}
-
-
-/* Checkbox Container Styling */
-.checkbox-container {
-  margin-top: 10px;
-}
-
-.checkbox-container label {
-  display: block; /* Ensure each label and checkbox are on a separate line */
-  margin-bottom: 2px; /* Adds space between labels */
-}
-
-/* Custom position for the scale bar */
-.custom-scale-bar {
-  left: 270px;
-}
-
-/* Adjust font size for the measuring tool */
-.leaflet-control-measure {
-  font-size: 12px;
-  z-index: 999
-}
-
-/* Adjust font size for the scale bar */
-.custom-scale-bar .leaflet-control-scale-line {
-  font-size: 12px;  /* Adjust this value as needed */
-}
-
-/* Styling for the top-middle text pane */
-.top-middle-pane {
-  position: absolute;
-  top: 20px; /* 20px from the top */
-  left: 50%;
-  background-color: rgba(0, 0, 0, 0.1); /* 10% transparency */
-  color: whitesmoke;
-  font-size: 24px;
-  padding: 10px 20px;
-  font-weight: bold;
-  border-radius: 5px;
-  z-index: 999; /* Ensures it stays above other content */
-}
-
-/* Style the location button */
-.location-button {
-  position: relative;
-  top: 145px;
-  left: 12px;
-  width: 30px;
-  height: 30px;
-  background-color: white ; /* Blue color */
-  color: white;
-  border-radius: 5px;
-  font-size: 25px; /* Size of the icon */
-  display: flex;
-  align-items: center;
   justify-content: center;
+  width: 100%;
+  gap: 0;
+}
+
+.navbar-nav .nav-item {
+  margin: 0 24px;
+}
+
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  padding: 6px 4px;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  display: inline-block;
+  border-bottom: 1px solid transparent;
+  font-weight: 700;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--gold-light);
+  border-bottom-color: var(--gold-light);
+}
+
+/* Scroll indicator */
+.fullscreen::after {
+  content: '↓';
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.5);
+  font-size: 1.5rem;
+  animation: bounce 2s infinite;
+  z-index: 10;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ── ABOUT SECTION ────────────────────────── */
+.fullscreen-2 {
+  width: 100%;
+  background-color: var(--charcoal);
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(74, 103, 65, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(201, 168, 76, 0.06) 0%, transparent 50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* Explore block */
+.box-1 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.9;
+  box-sizing: border-box;
+  padding: 5rem 4rem;
+  margin: 0;
+  background: transparent;
+  color: rgba(255,255,255,0.85);
+  animation: fadeIn 1.2s ease-out forwards;
+  text-shadow: none;
+  border-radius: 0;
+}
+
+.box-1 h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  letter-spacing: 6px;
+  color: var(--gold-light);
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.box-1 b {
+  color: var(--gold-light);
+  font-weight: 700;
+}
+
+.box-1 u lead {
+  text-decoration: none;
+  font-style: italic;
+  color: var(--sage);
+}
+
+/* Green divider bar */
+.bg-success {
+  background: linear-gradient(135deg, var(--forest) 0%, #1a3318 100%) !important;
+  border-bottom: 3px solid var(--gold);
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-success::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(201, 168, 76, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Icons row */
+.col-sm-4 {
+  padding: 2rem;
+  background: transparent;
+}
+
+.img-resize {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  opacity: 0.7;
+  filter: brightness(0) invert(1) sepia(1) saturate(0.5) hue-rotate(60deg);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.img-resize:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* ── ABOUT THE MAP SECTION ─────────────────── */
+.next-screen {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 !important;
+}
+
+.box-3 {
+  font-family: 'Merriweather', serif;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.85;
+  box-sizing: border-box;
+  padding: 4rem 5rem !important;
+  margin: 0;
+  animation: fadeIn 1.5s ease-out forwards;
+  text-shadow: none;
+  background: var(--charcoal) !important;
+  border-top: 1px solid rgba(201, 168, 76, 0.2);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+  color: rgba(255,255,255,0.8);
+}
+
+.box-3 h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.3rem;
+  letter-spacing: 4px;
+  color: var(--gold-light);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.box-3 b {
+  color: rgba(255,255,255,0.95);
+  font-weight: 700;
+}
+
+.col-sm-2 {
+  display: flex;
+  align-items: flex-start;
+  padding: 4rem 2rem 4rem 5rem;
+}
+
+/* ── MAP SECTION ──────────────────────────── */
+.last-screen {
+  width: 100%;
+  background-color: var(--ivory);
+  font-family: 'Raleway', sans-serif;
+}
+
+.last-screen .row {
+  min-height: 80vh;
+}
+
+/* Sidebar */
+.last-screen .col-md-2 {
+  background: var(--charcoal);
+  color: var(--cream);
+  padding: 2rem 1.5rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.3px;
+  border-right: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+.last-screen .col-md-2 p {
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  font-size: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.last-screen .col-md-2 p b {
+  color: var(--gold-light);
+}
+
+.last-screen h5 {
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 2px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin: 1.5rem 0 0.5rem;
+}
+
+/* Track select dropdown */
+#trackSelect {
+  width: 100%;
+  margin: 0 !important;
+  padding: 8px 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 4px;
+  color: var(--cream);
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.78rem;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.0);
-  border: none;
-  transition: background-color 0.3s, transform 0.3s;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a84c'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
 }
 
-.location-button:hover {
-  background-color: 	#4d4d4d; /* Darker blue on hover */
-  transform: scale(1.1); /* Slight zoom effect */
+#trackSelect:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.15);
 }
 
-.location-button:active {
-  background-color: #000000; /* Even darker blue on click */
+/* Attributes table */
+#attributes-table {
+  width: 100%;
+  margin-top: 1.5rem !important;
+  margin-left: 0 !important;
+  border-collapse: collapse;
+  font-size: 0.78rem;
 }
 
-/* Using an image for the location icon */
-.location-button {
-  background-image: url('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/location_icon.png');
-  background-size: cover;
-  background-position: center;
-  z-index: 9999; /* Remove text if using an image */
+#attributes-table thead tr {
+  background: rgba(201, 168, 76, 0.15);
+}
+
+#attributes-table th {
+  padding: 6px 10px;
+  color: var(--gold-light);
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+#attributes-table td {
+  padding: 6px 10px;
+  color: rgba(255,255,255,0.7);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+#attributes-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Tracks button */
+.btn {
+  background: transparent !important;
+  color: var(--gold-light) !important;
+  border: 1px solid rgba(201, 168, 76, 0.4) !important;
+  padding: 7px 18px !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  border-radius: 3px !important;
+  box-shadow: none !important;
+  font-family: 'Raleway', sans-serif !important;
+  text-transform: uppercase;
+  transition: all 0.25s ease !important;
+}
+
+.btn:hover {
+  background: rgba(201, 168, 76, 0.12) !important;
+  border-color: var(--gold) !important;
+  color: var(--gold) !important;
+}
+
+/* Tracks dropdown menu */
+.dropdown-menu {
+  background: var(--charcoal) !important;
+  border: 1px solid rgba(201, 168, 76, 0.2) !important;
+  border-radius: 4px !important;
+  padding: 0.75rem !important;
+  columns: 2 !important;
+  min-width: 340px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+}
+
+.dropdown-header {
+  color: var(--gold) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  padding: 8px 8px 4px !important;
+  font-family: 'Raleway', sans-serif !important;
+  column-span: all;
+  break-after: avoid;
+}
+
+.dropdown-item {
+  color: rgba(255,255,255,0.7) !important;
+  font-size: 0.75rem !important;
+  padding: 4px 8px !important;
+  cursor: pointer;
+  border-radius: 3px !important;
+  transition: background 0.2s !important;
+  white-space: nowrap;
+}
+
+.dropdown-item:hover {
+  background: rgba(201, 168, 76, 0.1) !important;
+  color: var(--gold-light) !important;
+}
+
+.dropdown-item input[type="checkbox"] {
+  accent-color: var(--gold);
+  margin-right: 6px;
+}
+
+/* ── MAP ──────────────────────────────────── */
+#map {
+  width: 100%;
+  height: 82vh;
+}
+
+/* ── FOOTER ───────────────────────────────── */
+.last {
+  width: 100%;
+  background: #0e1410 !important;
+  border-top: 1px solid rgba(201, 168, 76, 0.15);
+  padding: 1.5rem 0;
+}
+
+.last .row {
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+
+.last b {
+  color: var(--gold-light);
+}
+
+/* ── ANIMATIONS ───────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── MAP UI OVERRIDES ─────────────────────── */
+.leaflet-control-zoom a {
+  background: rgba(20, 28, 20, 0.9) !important;
+  color: var(--gold-light) !important;
+  border: 1px solid rgba(201, 168, 76, 0.2) !important;
+  font-size: 16px !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: rgba(45, 74, 40, 0.9) !important;
+}
+
+.leaflet-control-layers {
+  background: rgba(20, 28, 20, 0.9) !important;
+  border: 1px solid rgba(201, 168, 76, 0.2) !important;
+  color: var(--cream) !important;
+  border-radius: 4px !important;
+}
+
+.leaflet-control-layers-toggle {
+  background-color: rgba(20, 28, 20, 0.9) !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: rgba(20, 28, 20, 0.95) !important;
+  color: var(--cream) !important;
+  border: 1px solid rgba(201, 168, 76, 0.3) !important;
+  border-radius: 4px !important;
+  font-family: 'Raleway', sans-serif !important;
+  font-size: 0.8rem !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(20, 28, 20, 0.95) !important;
 }
 
 /* Hide cluster icons */
@@ -374,3 +517,100 @@ html, body {
   display: none;
 }
 
+/* Location button */
+.location-button {
+  position: absolute !important;
+  bottom: 30px !important;
+  right: 12px !important;
+  width: 36px !important;
+  height: 36px !important;
+  background-image: url('https://raw.githubusercontent.com/Redrum13/mapro/refs/heads/main/location_icon.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-color: rgba(20, 28, 20, 0.9) !important;
+  border: 1px solid rgba(201, 168, 76, 0.3) !important;
+  border-radius: 4px !important;
+  z-index: 9999 !important;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+  transition: border-color 0.2s, transform 0.2s !important;
+}
+
+.location-button:hover {
+  border-color: var(--gold) !important;
+  transform: scale(1.05) !important;
+}
+
+/* Scale bar */
+.leaflet-control-scale-line {
+  background: rgba(20, 28, 20, 0.85) !important;
+  color: var(--cream) !important;
+  border-color: rgba(201, 168, 76, 0.3) !important;
+  font-size: 10px !important;
+}
+
+/* Legend */
+.leaflet-control {
+  border: none !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+}
+
+/* ── MOBILE RESPONSIVE ────────────────────── */
+@media (max-width: 768px) {
+  .main-title { font-size: 2.5rem; }
+  .sub-title { font-size: 0.95rem; }
+  .custom-navbar { width: 90%; font-size: 11px; }
+  .navbar-nav .nav-item { margin: 0 10px; }
+
+  .box-1 { padding: 3rem 1.5rem; font-size: 0.9rem; }
+  .box-3 { padding: 2.5rem 1.5rem !important; font-size: 0.88rem; }
+  .col-sm-2 { padding: 2rem 1.5rem; }
+
+  .img-resize { display: none; }
+
+  .last-screen .col-md-2 {
+    padding: 1.5rem 1rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  }
+
+  #map { height: 65vh; }
+
+  .dropdown-menu {
+    columns: 1 !important;
+    min-width: 250px;
+    font-size: 0.72rem !important;
+  }
+
+  .last-screen .row {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .fullscreen { height: 100svh; }
+  .navbar-nav { flex-wrap: wrap; }
+  .custom-navbar { border-radius: 12px; }
+  .box-1 h1 { font-size: 1.3rem; letter-spacing: 3px; }
+  .box-3 h1 { font-size: 1rem; }
+  #map { height: 55vh; }
+}
+
+/* ── MAP SECTION TITLE ────────────────────── */
+#jump {
+  position: relative;
+}
+
+#jump::before {
+  content: 'THE WALK MAP';
+  display: block;
+  text-align: center;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.65rem;
+  letter-spacing: 6px;
+  color: var(--gold);
+  padding: 1.2rem 0 0.8rem;
+  background: var(--charcoal);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+  width: 100%;
+}
